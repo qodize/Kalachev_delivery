@@ -19,13 +19,13 @@ class Order(SqlAlchemyBase):
                    primary_key=True,
                    autoincrement=True)
     client_id = sa.Column(sa.Integer,
-                          sa.ForeignKey("clients.id"),
+                          sa.ForeignKey("users.id"),
                           nullable=True)
     cook_id = sa.Column(sa.Integer,
-                        sa.ForeignKey("cooks.id"),
+                        sa.ForeignKey("users.id"),
                         nullable=True)
     deliveryman_id = sa.Column(sa.Integer,
-                               sa.ForeignKey('deliverymen.id'),
+                               sa.ForeignKey('users.id'),
                                nullable=True)
     address_data = sa.Column(sa.String,
                              nullable=True)
@@ -36,9 +36,9 @@ class Order(SqlAlchemyBase):
     total_cost = sa.Column(sa.Integer,
                            nullable=True)
 
-    client = orm.relation('Client')
-    cook = orm.relation('Cook')
-    deliveryman = orm.relation('Deliveryman')
+    client = orm.relation('User')
+    cook = orm.relation('User')
+    deliveryman = orm.relation('User')
 
     products = orm.relation('Product',
                             secondary='order_to_product',

@@ -1,5 +1,6 @@
 from flask import Flask
 from data import db_session
+from flask_login_multi.login_manager import LoginManager
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '54321qwerty'
