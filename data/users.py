@@ -2,6 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy import orm
 from .db_session import SqlAlchemyBase
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class User(SqlAlchemyBase, UserMixin):
@@ -65,5 +66,12 @@ class WorkerData(SqlAlchemyBase):
 
     passport = sa.Column(sa.String, nullable=True)
     address = sa.Column(sa.String, nullable=True)
+    hashed_password = sa.Column(sa.String, nullable=True)
+
+    def set_password(self, pwd: str) -> None:
+        self.hashed_password = generate_password_hash(pwd)
+
+    def check_password(self, pwd: str) -> bool:
+        return check_password_hash(self.hashed_password, pwd)
 
     user = orm.relation('User')

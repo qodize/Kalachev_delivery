@@ -15,7 +15,6 @@ app.config['SECRET_KEY'] = '54321qwerty'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-global_session = db_session.create_session()
 
 
 #  Вместо декоратора из библиотеки нам понадобится свой, т.к. у нас несколько ролей
@@ -41,7 +40,10 @@ def load_user(user_id):
 
 def main():
     db_session.global_init('db/PizzaMan_db.db')
-    
+
+    global global_session
+    global_session = db_session.create_session()
+
     app.register_blueprint(clients_bp.blueprint)
     app.register_blueprint(cooks_bp.blueprint, url_prefix='/cooks')
     app.register_blueprint(deliverymen_bp.blueprint, url_prefix='/deliverymen')
