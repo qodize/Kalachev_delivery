@@ -3,18 +3,22 @@ from data import db_session
 from flask_login import LoginManager, current_user
 from functools import wraps
 
-from data.users import User
+from data.users import User, ClientAddress, WorkerData
+from data.orders import Order
+from data.products import Product
+from data.positions import Position
+
 
 import clients_bp
 import cooks_bp
 import deliverymen_bp
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '54321qwerty'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 
 #  Вместо декоратора из библиотеки нам понадобится свой, т.к. у нас несколько ролей
@@ -35,19 +39,17 @@ def login_required(role="ANY"):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return global_session.query(User).get(user_id)
+    session = db_session.create_session()
+    return session.query(User).get(user_id)
 
 
 def main():
     db_session.global_init('db/PizzaMan_db.db')
 
-    global global_session
-    global_session = db_session.create_session()
-
     app.register_blueprint(clients_bp.blueprint)
     app.register_blueprint(cooks_bp.blueprint, url_prefix='/cooks')
     app.register_blueprint(deliverymen_bp.blueprint, url_prefix='/deliverymen')
-    
+
     app.run(port=8080, host='127.0.0.1')
 
 

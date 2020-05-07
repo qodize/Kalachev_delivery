@@ -1,6 +1,8 @@
 import sqlalchemy as sa
 from sqlalchemy import orm
-from .db_session import SqlAlchemyBase
+from .db_session import SqlAlchemyBase, create_session
+from .products import Product
+# from .positions import Position
 
 
 class Order(SqlAlchemyBase):
@@ -19,23 +21,24 @@ class Order(SqlAlchemyBase):
                         sa.ForeignKey("users.id"),
                         nullable=True)
     deliveryman_id = sa.Column(sa.Integer,
-                               sa.ForeignKey('users.id'),
+                               sa.ForeignKey("users.id"),
                                nullable=True)
     address_data = sa.Column(sa.String,
                              nullable=True)
     delivery_time = sa.Column(sa.String,
                               nullable=True)
     status = sa.Column(sa.Integer,
-                       nullable=True)
+                       default=0)
     total_cost = sa.Column(sa.Integer,
                            nullable=True)
 
-    client = orm.relation('User')
-    cook = orm.relation('User')
-    deliveryman = orm.relation('User')
+    client = orm.relation('User', foreign_keys=[client_id])
+    cook = orm.relation('User', foreign_keys=[cook_id])
+    deliveryman = orm.relation('User', foreign_keys=[deliveryman_id])
 
     positions = orm.relation('Position',
-                             back_populates='order')
+                             back_populates='order',
+                             foreign_keys='Position.order_id')
 
     #  принимает в качестве cook и deliveryman объекты классов
     #  Cook и DeliveryMan
@@ -46,10 +49,35 @@ class Order(SqlAlchemyBase):
             if not cook:
                 return {'failure': 'Не указан повар'}
             self.cook_id = cook.id
+            self.cook = cook
         #  Если заказ принят доставщиком
         if self.status == 3:
             if not deliveryman:
                 return {'failure': 'Не указан доставщик'}
+            self.deliveryman_id = deliveryman.id
+            self.deliveryman = deliveryman
         #  Во всех остальных случаях достаточно только прибавить статус
         self.status += 1
         return {'success': 'OK'}
+
+    #  переопределил оператор чтобы можно было смело использовать что-то типо
+    #  if product in order:
+    #      print(f'Да, в заказе {order} есть продукт {product}')
+    def __contains__(self, product: Product) -> bool:
+        return product.id in [position.product_id for position in self.positions]
+
+    #  добавить продукт в заказ (при передаче объекта класса Product)
+    #  (Она не работает поэтому закомментил
+    # def add_product(self, product_id: int, count=1, extra_wishes=None) -> None:
+    #     session = create_session()
+    #     product = session.query(Product).get(product_id)
+    #     position = Position(
+    #         order=self,
+    #         product=product,
+    #         count=count,
+    #         extra_wishes=extra_wishes,
+    #         point_cost=product.cost * count
+    #     )
+    #     session.add(position)
+    #     session.commit()
+    #     session.close()

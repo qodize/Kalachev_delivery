@@ -19,3 +19,7 @@ class Product(SqlAlchemyBase):
                             nullable=True)
     cost = sa.Column(sa.Integer,
                      nullable=True)
+
+    positions = orm.relation('Position',
+                             back_populates='product',
+                             foreign_keys='Position.product_id')

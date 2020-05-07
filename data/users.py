@@ -30,20 +30,34 @@ class User(SqlAlchemyBase, UserMixin):
                      default='client')
 
     addresses = orm.relation("ClientAddress",
-                             back_populates='client')
+                             back_populates='client',
+                             foreign_keys='ClientAddress.client_id')
 
     client_orders = orm.relation("Order",
-                                 back_populates='client')
+                                 back_populates='client',
+                                 foreign_keys='Order.client_id')
 
     cook_orders = orm.relation("Order",
-                               back_populates='cook')
+                               back_populates='cook',
+                               foreign_keys='Order.cook_id')
 
     deliveryman_orders = orm.relation("Order",
-                                      back_populates='deliveryman')
+                                      back_populates='deliveryman',
+                                      foreign_keys='Order.deliveryman_id')
 
     worker_data = orm.relation("WorkerData",
-                               back_populates='user',
+                               back_populates='worker',
+                               foreign_keys='WorkerData.worker_id',
                                uselist=False)
+
+    def set_password(self, pwd: str) -> None:
+        if self.worker_data:
+            self.worker_data.set_password(pwd)
+
+    def check_password(self, pwd: str) -> bool:
+        if self.worker_data:
+            return self.worker_data.check_password(pwd)
+        return False
 
 
 class ClientAddress(SqlAlchemyBase):
@@ -55,7 +69,7 @@ class ClientAddress(SqlAlchemyBase):
     client_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
     data = sa.Column(sa.String, nullable=True)
 
-    client = orm.relation("User")
+    client = orm.relation("User", foreign_keys=[client_id])
 
 
 class WorkerData(SqlAlchemyBase):
@@ -69,10 +83,10 @@ class WorkerData(SqlAlchemyBase):
     address = sa.Column(sa.String, nullable=True)
     hashed_password = sa.Column(sa.String, nullable=True)
 
+    worker = orm.relation('User', foreign_keys=[worker_id])
+
     def set_password(self, pwd: str) -> None:
         self.hashed_password = generate_password_hash(pwd)
 
     def check_password(self, pwd: str) -> bool:
         return check_password_hash(self.hashed_password, pwd)
-
-    user = orm.relation('User')
