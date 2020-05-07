@@ -3,17 +3,11 @@ from sqlalchemy import orm
 from .db_session import SqlAlchemyBase
 
 
-order_to_product_table = sa.Table(
-    'order_to_product', SqlAlchemyBase.metadata,
-    sa.Column('order', sa.Integer,
-              sa.ForeignKey('orders.id')),
-    sa.Column('product', sa.Integer,
-              sa.ForeignKey('products.id'))
-)
-
-
 class Order(SqlAlchemyBase):
     __tablename__ = 'orders'
+
+    statuses = ['basket', 'wait for cook', 'cooking',
+                'wait for delivery', 'delivering', 'finished']
 
     id = sa.Column(sa.Integer,
                    primary_key=True,
@@ -29,9 +23,9 @@ class Order(SqlAlchemyBase):
                                nullable=True)
     address_data = sa.Column(sa.String,
                              nullable=True)
-    delivery_time = sa.Column(sa.DateTime,
+    delivery_time = sa.Column(sa.String,
                               nullable=True)
-    status = sa.Column(sa.String,
+    status = sa.Column(sa.Integer,
                        nullable=True)
     total_cost = sa.Column(sa.Integer,
                            nullable=True)
@@ -40,6 +34,22 @@ class Order(SqlAlchemyBase):
     cook = orm.relation('User')
     deliveryman = orm.relation('User')
 
-    products = orm.relation('Product',
-                            secondary='order_to_product',
-                            backref='order')
+    positions = orm.relation('Position',
+                             back_populates='order')
+
+    #  принимает в качестве cook и deliveryman объекты классов
+    #  Cook и DeliveryMan
+    def increase_status(self, cook=None, deliveryman=None):
+        #  Проверяю, указаны ли повар и доставщик
+        #  Если заказ принят поваром
+        if self.status == 1:
+            if not cook:
+                return {'failure': 'Не указан повар'}
+            self.cook_id = cook.id
+        #  Если заказ принят доставщиком
+        if self.status == 3:
+            if not deliveryman:
+                return {'failure': 'Не указан доставщик'}
+        #  Во всех остальных случаях достаточно только прибавить статус
+        self.status += 1
+        return {'success': 'OK'}

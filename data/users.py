@@ -42,7 +42,8 @@ class User(SqlAlchemyBase, UserMixin):
                                       back_populates='deliveryman')
 
     worker_data = orm.relation("WorkerData",
-                               back_populates='user')
+                               back_populates='user',
+                               uselist=False)
 
 
 class ClientAddress(SqlAlchemyBase):
