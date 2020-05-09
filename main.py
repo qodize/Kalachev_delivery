@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from data import db_session
 from flask_login import LoginManager, current_user, login_user
 from functools import wraps
@@ -9,6 +9,7 @@ from data.products import Product
 from data.positions import Position
 
 
+import admins_bp
 import clients_bp
 import cooks_bp
 import deliverymen_bp
@@ -30,10 +31,14 @@ def login_required(role="ANY"):
         def decorated_view(*args, **kwargs):
             if not current_user.is_authenticated:
                 # return login_manager.unauthorized()
-                return 'У вас нет доступа к этой странице'
+                if role == 'client':
+                    return redirect('/login')
+                return redirect(f'/{role}/login')
             if not (current_user.role == role or role == "ANY"):
                 # return login_manager.unauthorized()
-                return 'У вас нет доступа к этой странице'
+                if role == 'client':
+                    return redirect('/login')
+                return redirect(f'/{role}/login')
             return fn(*args, **kwargs)
         return decorated_view
     return wrapper
@@ -49,9 +54,10 @@ def main():
     db_session.global_init('db/PizzaMan_db.db')
 
     # app.register_blueprint(tests_bp.blueprint, url_prefix='/tests')
+    app.register_blueprint(admins_bp.blueprint, url_prefix='/admin')
     app.register_blueprint(clients_bp.blueprint)
-    app.register_blueprint(cooks_bp.blueprint, url_prefix='/cooks')
-    app.register_blueprint(deliverymen_bp.blueprint, url_prefix='/deliverymen')
+    app.register_blueprint(cooks_bp.blueprint, url_prefix='/cook')
+    app.register_blueprint(deliverymen_bp.blueprint, url_prefix='/deliveryman')
 
     app.run(port=8080, host='127.0.0.1', debug=True)
 
