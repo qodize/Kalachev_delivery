@@ -1,0 +1,327 @@
+html, body{
+        margin:0;
+        padding:0;
+        width:100%;
+        height:100%;
+        font-family: "Roboto Slab";
+    }
+
+button:focus {
+    outline: none;
+}
+
+.navbar-custom{
+    background-color: #1f191a;
+}
+
+/* .navbar-brand img {
+    width: 100%;
+    height: auto;
+} */
+
+.navbar-custom a {
+    color: white;
+    font-family: "Roboto Slab";
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.navbar-custom a:hover,
+.navbar-custom a:active {
+    color: #C4C1C1;
+}
+
+.navbar-nav {
+    margin-right: 25px;
+}
+
+.nav-item {
+    padding: 0px 25px;
+}
+
+.main-login-btn {
+    margin: 0px;
+    padding: 10px 70px;
+    background-color: #fc6e20;
+    border: none;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    font-family: "Roboto Slab";
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.main-login-btn:hover {
+    background-color: white;
+    color: #fc6e20;
+    border: #FC6E20 2px solid;
+}
+
+.main-login-btn:before, .main-login-btn:after {
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #fc6e20;
+    transition:400ms ease all;
+}
+
+.main-login-btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+
+.main-login-btn:hover:before,.main-login-btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+.container-fluid.login {
+    top: 20px;
+}
+
+.login-col {
+    margin-top: 50px;
+    border-radius: 10px;
+    height: 500px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    font-family: "Roboto Slab";
+    background-image: url('../img/Без имени-1.png');
+    background-size: 250px 120px;
+    background-position: bottom right;
+    background-repeat: no-repeat;
+}
+
+.login-col h2 {
+    margin-top: 60px;
+}
+
+#phone-picture {
+    padding: 10px 10px;
+    background-color: #333333;
+    border: #FC6E20 2px solid;
+    border-radius: 5px 0px 0px 5px;
+}
+
+#login-phone-number {
+    padding-bottom: 15px;
+    padding-top: 11px;
+    padding-left: 50px;
+    padding-right: 35px;
+    border: #FC6E20 2px solid;
+    border-left: 0px;
+    border-radius: 0px 5px 5px 0px;
+    margin-left: -4px;
+    background-color: #EFEFEF;
+}
+
+#login-phone-number:focus {
+    outline: none;
+}
+
+.login-form {
+    margin-top: 50px;
+
+}
+
+.login-form p {
+    color: #fc6e20;
+    margin-top: 30px;
+}
+
+.login-form h2 {
+    font-weight: bold;
+}
+
+.login-btn-accept {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 10px 85px;
+    margin-top: 10px;
+    border: #a5a09c 2px solid;
+    border-radius: 5px;
+    font-size: 20px;
+    color: #a5a09c;
+    transition: 300ms ease all;
+}
+
+.login-btn-accept:hover {
+    background-color: #333333;
+    color: white;
+    border-color: #FC6E20;
+}
+
+
+.cbx {
+    margin-top: 70px;
+}
+
+/* Home */
+
+/* media запрос прописать */
+
+.carousel-item {
+    height: 720px;
+    position: relative;
+}
+
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+ /*
+.carousel-text {
+    color: #fff;
+}
+
+.carousel-content {
+    max-width: 800px;
+    position: relative;
+    top: -9px;
+    z-index: 2;
+} */
+
+.home-content {
+    margin-top: 80px;
+}
+
+footer {
+    background-color: #EFEFEF;
+    margin-top: 100px;
+}
+
+.footer-content {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.footer-img img {
+    width: 160px;
+    border-radius: 50%;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.footer-content p {
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.footer-content span {
+    display: inline-block;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.footer-content h2{
+    font-size: 2.25rem;
+}
+
+/* Дизайн для ЛК */
+
+
+.left-profile-info {
+    top: 50px;
+    font-family: "Roboto Slab";
+}
+
+.info-panel {
+    height: 300px;
+    padding: 25px 30px;
+    box-shadow: 0px 9px 10px rgba(0, 0, 0, 0.25);
+}
+
+.info-panel p {
+    margin-bottom: 5px;
+}
+
+.table-order {
+    height: 610px;
+    top: 50px;
+    box-shadow: 0px 9px 10px rgba(0, 0, 0, 0.25);
+    font-family: "Roboto Slab";
+}
+
+.change-profile-btn {
+    position: relative;
+    display:block;
+    margin: 40px auto;
+    padding: 10px 40px;
+    font-size: 18px;
+    border-radius: 7px;
+    background: #FC6E20;
+    border: none;
+    color: #ffffff;
+    transition:500ms ease all;
+}
+
+.change-profile-btn:hover {
+    color: #FC6E20;
+    background: #fff;
+    border: #FC6E20 2px solid;
+    font-weight: bold;
+    transition:400ms ease all;
+}
+
+.adress-btn-info {
+    position: relative;
+    font: bold 18px "Roboto Slab";
+    display: block;
+    padding: 20px 120px;
+    margin: 30px auto;
+    background: #FFFFFF;
+    border: 5px solid #FC6E20;
+    box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.modal-content {
+    background: #EEE;
+}
+
+.modal-title {
+    padding-left: 90px;
+}
+
+.modal-btn-custom {
+    margin: 5px auto;
+    padding: 10px 40px;
+    font-size: 18px;
+    border-radius: 7px;
+    background: #FC6E20;
+    border: none;
+    color: #ffffff;
+    transition:500ms ease all;
+}
+.modal-btn-custom:hover {
+    color: #FC6E20;
+    background: #fff;
+    border: #FC6E20 2px solid;
+    font-weight: bold;
+    transition:400ms ease all;
+}
+
+.modal-body {
+    padding-top: 20;
+}
+
+
+
+

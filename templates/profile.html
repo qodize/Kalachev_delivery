@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 left-profile-info">
+                    <div class="info-panel">
+                        <p>Имя: %s</p>
+                        <p>Фамилия: %s</p>
+                        <p>Пол: %s</p>
+                        <p>Номер телефона: %s</p>
+                        <p>Дата рождения: %s</p>
+                        <p>E-Mail: %s</p>
+                        <button class="change-profile-btn" data-toggle="modal" data-target="#editProfile">РЕДАКТИРОВАТЬ</button>
+                    </div>
+                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №1</button>
+                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №2</button>
+                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №3</button>
+                </div>
+                <div class="col-7 offset-md-1 table-order">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Номер заказа</th>
+                          <th scope="col">Стоимость</th>
+                          <th scope="col">Статус</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML-код модального окна (редактирование профиля) -->
+    <div id="editProfile" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Изменение данных</h3>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+
+                        <form action="#" class="edit-profile-form text-center">
+                            {{ form_modal_edit.hidden_tag() }}
+                            {{ form_modal_edit.csrf_token }}
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form_modal_edit.name.label(for="inputName") }}
+                                    {{ form_modal_edit.name(class="form-control", type="text", id="inputName", placeholder="Котофей") }}
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form_modal_edit.surname.label(for="inputSurname") }}
+                                    {{ form_modal_edit.surname(class="form-control", type="text", id="inputSurname", placeholder="Мурзиков") }}
+
+                                </div>
+                            </div>
+
+                              <div class="form-group">
+                                  {{ form_modal_edit.email.label(for="inputEmail")}}
+                                  {{ form_modal_edit.email(class="form-control", type="email", id="inputEmail") }}
+                                  {% for error in form_modal_edit.email.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                              </div>
+
+                            <p>Дата рождения</p>
+                              <div class="form-row">
+                                <div class="form-group col-md-4">
+                                  {{ form_modal_edit.day.label}}
+                                  {{ form_modal_edit.day(class="form-control") }}
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                  {{ form_modal_edit.month.label}}<br>
+                                  {{ form_modal_edit.month(class="form-control") }}
+                                </div>
+
+                                  <div class="form-group col-md-4">
+                                  {{ form_modal_edit.year.label}}<br>
+                                  {{ form_modal_edit.year(class="form-control") }}
+                                </div>
+                              </div>
+                        </form>
+                    </div>
+                    {% if message %}
+                        <p class="alert alert-danger" role="alert">{{ message }}<p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer ">
+                    {{ form_modal_edit.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML-код модального окна (добавление адреса) -->
+    <div id="editAddress" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Добавление адреса</h3>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="#" class="edit-profile-form text-center">
+                            {{ form_address.hidden_tag() }}
+                            {{ form_address.csrf_token }}
+
+                            <div class="form-group">
+                                {{ form_address.city.label}}
+                                {{ form_address.city(class="form-control") }}
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form_address.street.label}}
+                                    {{ form_address.street(class="form-control") }}
+                                    {% for error in form_address.street.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form_address.house_number.label}}
+                                    {{ form_address.house_number(class="form-control") }}
+                                    {% for error in form_address.house_number.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form_address.flat.label}}
+                                    {{ form_address.flat(class="form-control") }}
+                                    {% for error in form_address.flat.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form_address.entrance.label}}
+                                    {{ form_address.entrance(class="form-control") }}
+                                    {% for error in form_address.entrance.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form_address.floor.label}}
+                                    {{ form_address.floor(class="form-control") }}
+                                    {% for error in form_address.floor.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form_address.doorphone.label}}
+                                    {{ form_address.doorphone(class="form-control") }}
+                                    {% for error in form_address.doorphone.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {{ form_address.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
