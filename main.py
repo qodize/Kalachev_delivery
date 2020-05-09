@@ -53,7 +53,7 @@ def main():
     app.register_blueprint(cooks_bp.blueprint, url_prefix='/cooks')
     app.register_blueprint(deliverymen_bp.blueprint, url_prefix='/deliverymen')
 
-    app.run(port=8080, host='127.0.0.1')
+    app.run(port=8080, host='127.0.0.1', debug=True)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 left-profile-info">
+                    <div class="info-panel">
+                        <p>Имя: %s</p>
+                        <p>Фамилия: %s</p>
+                        <p>Пол: %s</p>
+                        <p>Номер телефона: %s</p>
+                        <p>Дата рождения: %s</p>
+                        <p>E-Mail: %s</p>
+                        <button class="change-profile-btn" data-toggle="modal" data-target="#editProfile">РЕДАКТИРОВАТЬ</button>
+                    </div>
+                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №1</button>
+                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №2</button>
+                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №3</button>
+                </div>
+                <div class="col-7 offset-md-1 table-order">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Номер заказа</th>
+                          <th scope="col">Стоимость</th>
+                          <th scope="col">Статус</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML-код модального окна (редактирование профиля) -->
+    <div id="editProfile" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Изменение данных</h3>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="#" class="edit-profile-form text-center">
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputName">Имя*</label>
+                                  <input type="text" class="form-control" id="inputName" placeholder="Котофей">
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputSurname">Фамилия*</label>
+                                  <input type="text" class="form-control" id="inputSurname" placeholder="Мурзиков">
+                                </div>
+                            </div>
+                              <div class="form-group">
+                                <label for="inputEmail">E-mail</label>
+                                <input type="email" class="form-control" id="inputEmail">
+                              </div>
+                                <div class="form-group">
+                                  <label for="inputSex">Пол</label>
+                                  <select id="inputSex" class="form-control">
+                                    <option value="male">Мужской</option>
+                                    <option value="female">Женский</option>
+                                  </select>
+                                </div>
+
+                            <p>Дата рождения</p>
+                              <div class="form-row">
+
+                                <div class="form-group col-md-4">
+                                  <label for="inputDay">День</label>
+                                  <select id="inputDay" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                  </select>
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                  <label for="inputMonth">Месяц</label>
+                                  <select id="inputMonth" class="form-control">
+                                    <option value="1">Январь</option>
+                                    <option value="2">Февраль</option>
+                                  </select>
+                                </div>
+
+                                  <div class="form-group col-md-4">
+                                  <label for="inputYear">Год</label>
+                                  <select id="inputYear" class="form-control">
+                                    <option value="1979">1979</option>
+                                    <option value="1980">1980</option>
+                                  </select>
+                                </div>
+                              </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary modal-btn-custom">СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HTML-код модального окна (добавление адреса) -->
+    <div id="editAddress" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Добавление адреса</h3>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="#" class="edit-profile-form text-center">
+
+                            <div class="form-group">
+                                <label for="inputCity">Город*</label>
+                                <select id="inputCity" class="form-control">
+                                    <option value="male">Стерлитамак</option>
+                                    <option value="female">Кумертау</option>
+                                    <option value="female">Ишимбай</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputStreet">Улица*</label>
+                                  <input type="text" class="form-control" id="inputStreet">
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputHouse">Номер дома*</label>
+                                  <input type="text" class="form-control" id="inputHouse">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputFlat">Квартира / офис*</label>
+                                  <input type="text" class="form-control" id="inputFlat">
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputEntrance">Подъезд</label>
+                                  <input type="text" class="form-control" id="inputEntrance">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                  <label for="inputFloor">Этаж</label>
+                                  <input type="text" class="form-control" id="inputFloor">
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputDoorphone">Код домофона</label>
+                                  <input type="text" class="form-control" id="inputDoorphone">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary modal-btn-custom">ПРИНЯТЬ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
