@@ -3,8 +3,8 @@ from client_form import ClientForm
 from address_form import AddressForm
 from data.users import User
 from data import db_session
-from flask import Blueprint
-from main import login_required
+from login_required import login_required
+from flask_login import current_user
 
 blueprint = Blueprint('clients_bp', __name__,
                       template_folder='templates')
@@ -24,7 +24,7 @@ def index():
   
 #  ЛК
 @blueprint.route('/profile', methods=['GET', 'POST'])
-@login_required(role='client')
+# @login_required(role='client')
 def profile():
     form = ClientForm()
     form_address = AddressForm()
@@ -39,12 +39,13 @@ def profile():
     #         )
     # я не панимаю, но здесь должно быть что-то вроде этого
 
-    return render_template('profile.html', title='Профиль', form_modal_edit=form, form_address=form_address)
+    return render_template('profile.html', title='Профиль', form_modal_edit=form,
+                           form_address=form_address, current_user=current_user)
 
 
 #  Корзина
 @blueprint.route('/cart', methods=['GET', 'POST'])
-@login_required(role='client')
+# @login_required(role='client')
 def cart():
     pass
 

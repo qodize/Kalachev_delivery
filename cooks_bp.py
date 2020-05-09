@@ -1,5 +1,5 @@
 from flask import Blueprint
-from main import login_required
+from login_required import login_required
 
 blueprint = Blueprint('cooks_bp', __name__,
                       template_folder='templates')

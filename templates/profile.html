@@ -7,12 +7,12 @@
             <div class="row">
                 <div class="col-4 left-profile-info">
                     <div class="info-panel">
-                        <p>Имя: %s</p>
-                        <p>Фамилия: %s</p>
+                        <p>Имя: {{ current_user.name }}</p>
+                        <p>Фамилия: {{ current_user.surname }}</p>
                         <p>Пол: %s</p>
-                        <p>Номер телефона: %s</p>
-                        <p>Дата рождения: %s</p>
-                        <p>E-Mail: %s</p>
+                        <p>Номер телефона: {{ current_user.phone_number }}</p>
+                        <p>Дата рождения: {{ current_user.birthday }}</p>
+                        <p>E-Mail: {{ current_user.email }}</p>
                         <button class="change-profile-btn" data-toggle="modal" data-target="#editProfile">РЕДАКТИРОВАТЬ</button>
                     </div>
                     <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №1</button>
