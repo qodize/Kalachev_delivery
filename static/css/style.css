@@ -319,17 +319,9 @@ footer {
 }
 
 .modal-body {
-
     padding-top: 20;
 }
 
-.edit-profile-form .row {
-    margin-top: 30px;
-    margin-bottom: 30px;
 
-}
 
-.edit-profile-form input,
-.edit-profile-form label {
-    display: block;
-}
+

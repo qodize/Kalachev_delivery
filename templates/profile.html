@@ -61,63 +61,59 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
+
                         <form action="#" class="edit-profile-form text-center">
+                            {{ form_modal_edit.hidden_tag() }}
+                            {{ form_modal_edit.csrf_token }}
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                  <label for="inputName">Имя*</label>
-                                  <input type="text" class="form-control" id="inputName" placeholder="Котофей">
+                                    {{ form_modal_edit.name.label(for="inputName") }}
+                                    {{ form_modal_edit.name(class="form-control", type="text", id="inputName", placeholder="Котофей") }}
+
                                 </div>
                                 <div class="form-group col-md-6">
-                                  <label for="inputSurname">Фамилия*</label>
-                                  <input type="text" class="form-control" id="inputSurname" placeholder="Мурзиков">
+                                    {{ form_modal_edit.surname.label(for="inputSurname") }}
+                                    {{ form_modal_edit.surname(class="form-control", type="text", id="inputSurname", placeholder="Мурзиков") }}
+
                                 </div>
                             </div>
+
                               <div class="form-group">
-                                <label for="inputEmail">E-mail</label>
-                                <input type="email" class="form-control" id="inputEmail">
+                                  {{ form_modal_edit.email.label(for="inputEmail")}}
+                                  {{ form_modal_edit.email(class="form-control", type="email", id="inputEmail") }}
+                                  {% for error in form_modal_edit.email.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
                               </div>
-                                <div class="form-group">
-                                  <label for="inputSex">Пол</label>
-                                  <select id="inputSex" class="form-control">
-                                    <option value="male">Мужской</option>
-                                    <option value="female">Женский</option>
-                                  </select>
-                                </div>
 
                             <p>Дата рождения</p>
                               <div class="form-row">
-
                                 <div class="form-group col-md-4">
-                                  <label for="inputDay">День</label>
-                                  <select id="inputDay" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                  </select>
+                                  {{ form_modal_edit.day.label}}
+                                  {{ form_modal_edit.day(class="form-control") }}
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                  <label for="inputMonth">Месяц</label>
-                                  <select id="inputMonth" class="form-control">
-                                    <option value="1">Январь</option>
-                                    <option value="2">Февраль</option>
-                                  </select>
+                                  {{ form_modal_edit.month.label}}<br>
+                                  {{ form_modal_edit.month(class="form-control") }}
                                 </div>
 
                                   <div class="form-group col-md-4">
-                                  <label for="inputYear">Год</label>
-                                  <select id="inputYear" class="form-control">
-                                    <option value="1979">1979</option>
-                                    <option value="1980">1980</option>
-                                  </select>
+                                  {{ form_modal_edit.year.label}}<br>
+                                  {{ form_modal_edit.year(class="form-control") }}
                                 </div>
                               </div>
                         </form>
-
                     </div>
+                    {% if message %}
+                        <p class="alert alert-danger" role="alert">{{ message }}<p>
+                    {% endif %}
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary modal-btn-custom">СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+                <div class="modal-footer ">
+                    {{ form_modal_edit.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
                 </div>
             </div>
         </div>
@@ -134,46 +130,74 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <form action="#" class="edit-profile-form text-center">
+                            {{ form_address.hidden_tag() }}
+                            {{ form_address.csrf_token }}
 
                             <div class="form-group">
-                                <label for="inputCity">Город*</label>
-                                <select id="inputCity" class="form-control">
-                                    <option value="male">Стерлитамак</option>
-                                    <option value="female">Кумертау</option>
-                                    <option value="female">Ишимбай</option>
-                                </select>
+                                {{ form_address.city.label}}
+                                {{ form_address.city(class="form-control") }}
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                  <label for="inputStreet">Улица*</label>
-                                  <input type="text" class="form-control" id="inputStreet">
+                                    {{ form_address.street.label}}
+                                    {{ form_address.street(class="form-control") }}
+                                    {% for error in form_address.street.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
                                 </div>
                                 <div class="form-group col-md-6">
-                                  <label for="inputHouse">Номер дома*</label>
-                                  <input type="text" class="form-control" id="inputHouse">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                  <label for="inputFlat">Квартира / офис*</label>
-                                  <input type="text" class="form-control" id="inputFlat">
-                                </div>
-                                <div class="form-group col-md-6">
-                                  <label for="inputEntrance">Подъезд</label>
-                                  <input type="text" class="form-control" id="inputEntrance">
+                                    {{ form_address.house_number.label}}
+                                    {{ form_address.house_number(class="form-control") }}
+                                    {% for error in form_address.house_number.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                  <label for="inputFloor">Этаж</label>
-                                  <input type="text" class="form-control" id="inputFloor">
+                                    {{ form_address.flat.label}}
+                                    {{ form_address.flat(class="form-control") }}
+                                    {% for error in form_address.flat.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
                                 </div>
                                 <div class="form-group col-md-6">
-                                  <label for="inputDoorphone">Код домофона</label>
-                                  <input type="text" class="form-control" id="inputDoorphone">
+                                    {{ form_address.entrance.label}}
+                                    {{ form_address.entrance(class="form-control") }}
+                                    {% for error in form_address.entrance.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ form_address.floor.label}}
+                                    {{ form_address.floor(class="form-control") }}
+                                    {% for error in form_address.floor.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    {{ form_address.doorphone.label}}
+                                    {{ form_address.doorphone(class="form-control") }}
+                                    {% for error in form_address.doorphone.errors %}
+                                        <p class="alert alert-danger" role="alert">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </form>
@@ -181,7 +205,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary modal-btn-custom">ПРИНЯТЬ</button>
+                    {{ form_address.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
                 </div>
             </div>
         </div>
