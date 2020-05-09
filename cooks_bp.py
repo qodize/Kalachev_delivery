@@ -1,5 +1,7 @@
+from flask import Blueprint
+from login_required import login_required
 from flask import Blueprint, redirect, render_template
-from main import login_required, login_user
+from main import login_user
 from forms.worker_login_form import WorkerLoginForm
 
 from data import db_session
