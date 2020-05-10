@@ -280,9 +280,32 @@ footer {
     transition:400ms ease all;
 }
 
+.logout-btn {
+    position: relative;
+    display:block;
+
+    margin: 60px auto;
+    padding: 10px 40px;
+    font-size: 18px;
+    border-radius: 7px;
+    background: #FC6E20;
+    border: none;
+    color: #ffffff;
+    transition:500ms ease all;
+}
+
+.logout-btn:hover {
+    color: #FC6E20;
+    background: #fff;
+    text-decoration: none;
+    border: #FC6E20 2px solid;
+    font-weight: bold;
+    transition:400ms ease all;
+}
+
 .adress-btn-info {
     position: relative;
-    font: bold 18px "Roboto Slab";
+    font: bold 12px "Roboto Slab";
     display: block;
     padding: 20px 120px;
     margin: 30px auto;
@@ -322,6 +345,164 @@ footer {
     padding-top: 20;
 }
 
+/* Корзина */
+
+.cart-good {
+    background: #EFEFEF;
+}
+
+/* Меню */
+
+.menu-content {
+    margin-top: 50px;
+}
+
+.menu-list-group {
+background: #EFEFEF;
+}
+
+.menu-list-group .list-group{
+    background: #EFEFEF;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.menu-list-group .list-group-item {
+    border: none;
+    background: #EFEFEF;
+    color: black;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    position: relative;
+}
+
+.menu-list-group .collapse.list-group-item {
+    padding-left: 60px;
+}
+
+.menu-list-group .list-group-item:first-child::before,
+.menu-list-group .list-group-item:nth-child(2)::before,
+.menu-list-group .list-group-item:nth-child(3)::before,
+.menu-list-group .list-group-item:nth-child(4)::before,
+.menu-list-group .list-group-item:last-child::before {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    left: -50px;
+    top: 16px;
+    position: absolute;
+    transition: 500ms all ease;
+}
 
 
+.menu-list-group .list-group-item:first-child::before {
+    background-image: url("https://img.icons8.com/ios/30/FC6E20/pizza-five-eighths.png");
+}
 
+.menu-list-group .list-group-item:nth-child(2)::before {
+    background-image: url("https://img.icons8.com/ios-filled/25/FC6E20/pizza.png");
+    width: 25px;
+    height: 25px;
+    top: 18px;
+}
+
+.menu-list-group .list-group-item:nth-child(3)::before {
+    background-image: url("https://img.icons8.com/pastel-glyph/30/FC6E20/birthday-cake-1.png");
+}
+
+.menu-list-group .list-group-item:nth-child(4)::before {
+    background-image: url("https://img.icons8.com/pastel-glyph/30/FC6E20/american-pancakes.png");
+}
+
+.menu-list-group .list-group-item:last-child::before {
+    background-image: url("https://img.icons8.com/android/24/FC6E20/wine-glass.png");
+    width: 24px;
+    height: 24px;
+    top: 20px;
+}
+
+.menu-list-group .list-group-item:first-child:hover::before,
+.menu-list-group .list-group-item:first-child:focus::before,
+.menu-list-group .list-group-item:nth-child(2):hover::before,
+.menu-list-group .list-group-item:nth-child(2):focus::before,
+.menu-list-group .list-group-item:nth-child(3):hover::before,
+.menu-list-group .list-group-item:nth-child(3):focus::before,
+.menu-list-group .list-group-item:nth-child(4):hover::before,
+.menu-list-group .list-group-item:nth-child(4):focus::before,
+.menu-list-group .list-group-item:last-child:hover::before,
+.menu-list-group .list-group-item:last-child:focus::before {
+    left: 0px;
+    opacity: 1;
+}
+
+
+.menu-list-group .list-group-item:active {
+    background-color: #FC6E20;
+}
+
+.menu-head {
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+.card-columns {
+   @include media-breakpoint-up(lg) {
+    column-count: 3;
+  }
+  @include media-breakpoint-up(md) {
+    column-count: 2;
+  }
+  @include media-breakpoint-up(sm) {
+    column-count: 1;
+  }
+}
+
+.card {
+    border: none;
+    height: 296px;
+}
+
+
+.menu-img img {
+     object-fit: cover;
+     max-height: 150px;
+     transition: 400ms all ease;
+}
+
+.menu-img a:hover img {
+    transform: scale(0.9);
+}
+
+.cart-btn {
+    background-color: #C4C4C4;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+.cart-btn:hover {
+    background-color: #FC6E20;
+}
+
+.cart-menu-footer span {
+    background: #C4C4C4;
+    padding: 5px 18px;
+    font-weight: bold;
+    font-size: 1.15rem;
+    border-radius: 5px;
+}
+
+.product-head {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.product-info p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
