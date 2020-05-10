@@ -102,13 +102,17 @@ button:focus {
     margin-top: 60px;
 }
 
-#phone-picture {
+
+#phone-picture,
+#user-picture,
+#picture-password {
     padding: 10px 10px;
     background-color: #333333;
     border: #FC6E20 2px solid;
     border-radius: 5px 0px 0px 5px;
 }
 
+#login-password,
 #login-phone-number {
     padding-bottom: 15px;
     padding-top: 11px;
@@ -121,6 +125,7 @@ button:focus {
     background-color: #EFEFEF;
 }
 
+#login-password:focus,
 #login-phone-number:focus {
     outline: none;
 }
@@ -137,6 +142,10 @@ button:focus {
 
 .login-form h2 {
     font-weight: bold;
+}
+
+.login-form h1 {
+    margin-bottom: 40px;
 }
 
 .login-btn-accept {
@@ -164,11 +173,27 @@ button:focus {
 
 /* Home */
 
-/* media запрос прописать */
 
 .carousel-item {
-    height: 720px;
     position: relative;
+}
+
+@media (min-width: 576px) {
+    .carousel-item {
+        height: 520px;
+    }
+}
+
+@media (min-width: 768px) {
+    .carousel-item {
+        height: 620px;
+    }
+}
+
+@media (min-width: 992px) {
+    .carousel-item {
+        height: 720px;
+    }
 }
 
 .carousel-item img {

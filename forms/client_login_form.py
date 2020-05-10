@@ -4,5 +4,5 @@ from wtforms.validators import DataRequired
 
 
 class ClientLoginForm(FlaskForm):
-    login = StringField("Номер телефона", validators=[DataRequired()])
+    phone_number = StringField("Номер телефона", validators=[DataRequired()])
     submit = SubmitField("ПОЛУЧИТЬ КОД")

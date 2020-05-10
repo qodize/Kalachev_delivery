@@ -10,10 +10,15 @@
                     <form action="" class="login-form text-center" method="post">
                         <!--{{ form.hidden_tag() }}-->
                         <h1>Авторизация</h1>
-                        <p>Введите номер телефона</p>
-                        <label id="phone-picture" for="phone-number"><img src="../static/img/login_phone.svg" width="30" height="30"></label>
-                        <!--{{ form.phone_number(type="text", id="login-phone-number", placeholder="+7 (***) ***-**-**") }}-->
-                        <!--{{ form.submit(type="submit", class="login-btn-accept") }}-->
+                        <div>
+                            <label id="user-picture" for="login-phone-number"><img src="https://img.icons8.com/metro/30/FC6E20/name.png"/></label>
+                            {{ form.phone_number(type="text", id="login-phone-number", placeholder="+7 (***) ***-**-**") }}
+                        </div>
+                        <div >
+                        <label id="picture-password" for="login-password"><img src="https://img.icons8.com/metro/30/FC6E20/password.png"/></label>
+                        {{ form.password(type="password", id="login-password") }}
+                        {{ form.submit(type="submit", class="login-btn-accept") }}
+                        </div>
                     </form>
                 </div>
                 <div class="col-xs-1 col-sm-1 col-lg-3">
