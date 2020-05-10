@@ -44,7 +44,11 @@
                         </li>
                     </ul>
                     <!-- Этот блок расположен справа -->
-                    <a class="main-login-btn" href="/login">ВОЙТИ</a>
+                    {% if current_user.is_authenticated %}
+                        <a class="main-login-btn" href="/profile">ПРОФИЛЬ</a>
+                    {% else %}
+                        <a class="main-login-btn" href="/login">ВОЙТИ</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>

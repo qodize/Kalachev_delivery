@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect
 from forms.client_form import ClientForm
 from forms.address_form import AddressForm
 from login_required import login_required
-from flask_login import current_user
+from flask_login import current_user, logout_user
 from main import login_user
 from forms.client_login_form import ClientLoginForm
 
@@ -38,6 +38,13 @@ def client_login():
         login_user(user, remember=True)
         return redirect('/')
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@blueprint.route("/logout")
+@login_required(role='client')
+def logout():
+    logout_user()
+    return redirect("/")
 
 
 # Главная
@@ -91,8 +98,11 @@ def checkout():
 
 @blueprint.route('/menu', methods=['GET', 'POST'])
 def menu():
-    pass
+    return render_template('menu.html', title='Меню')
 
-
-
+# @blueprint.route('/product/<int:product_id>', methods=['GET', 'POST'])
+@blueprint.route('/product', methods=['GET', 'POST'])
+def products():
+    product_title = 'Название товара'
+    return render_template('product.html', product_title=product_title)
 

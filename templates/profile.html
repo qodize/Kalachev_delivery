@@ -7,12 +7,32 @@
             <div class="row">
                 <div class="col-4 left-profile-info">
                     <div class="info-panel">
-                        <p>Имя: {{ current_user.name }}</p>
-                        <p>Фамилия: {{ current_user.surname }}</p>
-                        <p>Пол: %s</p>
+                        {% if current_user.name %}
+                            <p>Имя: {{ current_user.name }}</p>
+                        {% else %}
+                            <p>Имя: Не указано</p>
+                        {% endif %}
+
+                        {% if current_user.surname %}
+                            <p>Фамилия: {{ current_user.surname }}</p>
+                        {% else %}
+                            <p>Фамилия: Не указано</p>
+                        {% endif %}
+
                         <p>Номер телефона: {{ current_user.phone_number }}</p>
-                        <p>Дата рождения: {{ current_user.birthday }}</p>
-                        <p>E-Mail: {{ current_user.email }}</p>
+
+                        {% if current_user.birthday %}
+                            <p>Дата рождения: {{ current_user.birthday }}</p>
+                        {% else %}
+                            <p>Дата рождения: Не указано</p>
+                        {% endif %}
+
+                        {% if current_user.email %}
+                            <p>E-Mail: {{ current_user.email }}</p>
+                        {% else %}
+                            <p>E-Mail: Не указано</p>
+                        {% endif %}
+
                         <button class="change-profile-btn" data-toggle="modal" data-target="#editProfile">РЕДАКТИРОВАТЬ</button>
                     </div>
                     {% for address in current_user.addresses %}
@@ -41,8 +61,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+
                 </div>
+                <a href="/logout" class="logout-btn">ВЫЙТИ</a>
             </div>
+
         </div>
     </div>
 
