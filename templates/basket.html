@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <h1 style="font: bold 40px 'Roboto Slab'; text-align: center; margin-top: 50px; margin-bottom: 20px;">Корзина</h1>
+    <!-- Здесь начинается сама строчка с заказом -->
+    <div class="container-fluid offer-container">
+        <div class="container">
+            <div class="row dish-info">
+                <div class="col-2 photo-dish">
+                </div>
+                <div class="col-5 description-dish">
+                    <span>Названиe</span>
+                    <p> Состав: Lorem ipsum</p>
+                </div>
+                <div class="col-3 counter-value">
+                    <button type="button" onclick="this.nextElementSibling.stepDown()" class="btn-count">-</button>
+                    <input type="number" min="0" max="100" value="1" readonly class="count-val">
+                    <button type="button" onclick="this.previousElementSibling.stepUp()" class="btn-count">+</button>
+                </div>
+                <div class="col-2 curr-price-item">
+                    <span class="close"></span>
+                    <p>ЦЕНА</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Конец -->
+    <div class="container-fluid offer-container">
+        <div class="container">
+            <div class="row dish-info">
+                <div class="col-2 photo-dish">
+                </div>
+                <div class="col-5 description-dish">
+                    <span>Названиe</span>
+                    <p> Состав: Lorem ipsum</p>
+                </div>
+                <div class="col-3 counter-value">
+                    <button type="button" onclick="this.nextElementSibling.stepDown()" class="btn-count">-</button>
+                    <input type="number" min="0" max="100" value="1" readonly class="count-val">
+                    <button type="button" onclick="this.previousElementSibling.stepUp()" class="btn-count">+</button>
+                </div>
+                <div class="col-2 curr-price-item">
+                    <span class="close"></span>
+                    <p>ЦЕНА</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn-form-order">ОФОРМИТЬ ЗАКАЗ</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

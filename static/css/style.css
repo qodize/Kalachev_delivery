@@ -506,3 +506,117 @@ background: #EFEFEF;
     font-size: 1.2rem;
     font-weight: 300;
 }
+
+
+/* Стили для корзины */
+
+.offer-container {
+    margin-bottom: -50px;
+}
+.dish-info {
+    height: 100px;
+    margin-top: 50px;
+    background: #EFEFEF;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-bottom: 1px #1f191a solid;
+
+}
+
+.col-2.photo-dish {
+    background: #FC6E20;
+    padding-left: 0px;
+}
+
+.description-dish {
+    padding-top: 20px;
+}
+
+.description-dish span{
+    font: bold 20px 'Roboto Slab';
+}
+
+.description-dish p{
+    margin-top: 8px
+}
+
+.curr-price-item p {
+    font: bold 22px 'Roboto Slab';
+    width: 95px;
+    background: #FC6E20;
+    padding: 10px 10px;
+    margin-top: 30px;
+    color: #1f191a;
+    text-align: center;
+    border-radius: 7px;
+}
+
+.btn-form-order {
+    margin-top: 80px;
+    padding: 10px 50px;
+    border: none;
+    background: #FC6E20;
+    border-radius: 10px;
+    font: bold 22px 'Roboto Slab';
+    color: white;
+}
+
+/* Тот самый счётчик */
+
+
+.counter-value {
+    padding-top: 30px;
+}
+
+.count-val {
+    border: none;
+    font: bold 34px "Roboto Slab";
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+.count-val::-webkit-inner-spin-button {
+    display: none;
+}
+
+.btn-count {
+    height: 50px;
+    width: 50px;
+    font: bold 28px "Roboto Slab";
+    background: none;
+    color: #FC6E20;
+    border: 5px #FC6E20 solid;
+    border-radius: 50%;
+}
+
+.btn-count:focus {
+    outline: none;
+}
+
+.close {
+    position: absolute;
+    right: 13px;
+    top: 8px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.3;
+}
+.close:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    background-color: #333;
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
+}

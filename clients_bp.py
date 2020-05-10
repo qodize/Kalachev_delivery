@@ -83,10 +83,10 @@ def profile():
 
 
 #  Корзина
-@blueprint.route('/cart', methods=['GET', 'POST'])
+@blueprint.route('/basket', methods=['GET', 'POST'])
 @login_required(role='client')
-def cart():
-    pass
+def basket():
+    return render_template('basket.html', title='Корзина')
 
 
 #  Создание заказа
