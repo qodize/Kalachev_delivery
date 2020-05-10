@@ -7,44 +7,39 @@
             <div class="row">
                 <div class="col-4 left-profile-info">
                     <div class="info-panel">
-                        <p>Имя: %s</p>
-                        <p>Фамилия: %s</p>
+                        <p>Имя: {{ current_user.name }}</p>
+                        <p>Фамилия: {{ current_user.surname }}</p>
                         <p>Пол: %s</p>
-                        <p>Номер телефона: %s</p>
-                        <p>Дата рождения: %s</p>
-                        <p>E-Mail: %s</p>
+                        <p>Номер телефона: {{ current_user.phone_number }}</p>
+                        <p>Дата рождения: {{ current_user.birthday }}</p>
+                        <p>E-Mail: {{ current_user.email }}</p>
                         <button class="change-profile-btn" data-toggle="modal" data-target="#editProfile">РЕДАКТИРОВАТЬ</button>
                     </div>
-                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №1</button>
-                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №2</button>
-                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">АДРЕС №3</button>
+                    {% for address in current_user.addresses %}
+                        <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">{{ address.data }}</button>
+                    {% endfor %}
+                    <button class="adress-btn-info" data-toggle="modal" data-target="#editAddress">Добавить адрес</button>
                 </div>
                 <div class="col-7 offset-md-1 table-order">
                     <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Номер заказа</th>
-                          <th scope="col">Стоимость</th>
-                          <th scope="col">Статус</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Larry</td>
-                          <td>the Bird</td>
-                        </tr>
-                      </tbody>
+                        <thead>
+                            <tr>
+                              <th scope="col">Номер заказа</th>
+                              <th scope="col">Стоимость</th>
+                              <th scope="col">Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in current_user.client_orders %}
+                                {% if order.status != 0 %}
+                                <tr>
+                                    <th scope="row">{{ order.id }}</th>
+                                    <td>{{ order.total_cost }}</td>
+                                    <td>{{ order.statuses[order.status] }}</td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -55,66 +50,66 @@
     <div id="editProfile" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Изменение данных</h3>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-
-                        <form action="#" class="edit-profile-form text-center">
-                            {{ form_modal_edit.hidden_tag() }}
-                            {{ form_modal_edit.csrf_token }}
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    {{ form_modal_edit.name.label(for="inputName") }}
-                                    {{ form_modal_edit.name(class="form-control", type="text", id="inputName", placeholder="Котофей") }}
-
-                                </div>
-                                <div class="form-group col-md-6">
-                                    {{ form_modal_edit.surname.label(for="inputSurname") }}
-                                    {{ form_modal_edit.surname(class="form-control", type="text", id="inputSurname", placeholder="Мурзиков") }}
-
-                                </div>
-                            </div>
-
-                              <div class="form-group">
-                                  {{ form_modal_edit.email.label(for="inputEmail")}}
-                                  {{ form_modal_edit.email(class="form-control", type="email", id="inputEmail") }}
-                                  {% for error in form_modal_edit.email.errors %}
-                                        <p class="alert alert-danger" role="alert">
-                                            {{ error }}
-                                        </p>
-                                    {% endfor %}
-                              </div>
-
-                            <p>Дата рождения</p>
-                              <div class="form-row">
-                                <div class="form-group col-md-4">
-                                  {{ form_modal_edit.day.label}}
-                                  {{ form_modal_edit.day(class="form-control") }}
-                                </div>
-
-                                <div class="form-group col-md-4">
-                                  {{ form_modal_edit.month.label}}<br>
-                                  {{ form_modal_edit.month(class="form-control") }}
-                                </div>
-
-                                  <div class="form-group col-md-4">
-                                  {{ form_modal_edit.year.label}}<br>
-                                  {{ form_modal_edit.year(class="form-control") }}
-                                </div>
-                              </div>
-                        </form>
+                <form action="" class="edit-profile-form text-center" method="post">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Изменение данных</h3>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
-                    {% if message %}
-                        <p class="alert alert-danger" role="alert">{{ message }}<p>
-                    {% endif %}
-                </div>
-                <div class="modal-footer ">
-                    {{ form_modal_edit.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
-                </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+
+                                {{ form_modal_edit.hidden_tag() }}
+                                {{ form_modal_edit.csrf_token }}
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {{ form_modal_edit.name.label(for="inputName") }}
+                                        {{ form_modal_edit.name(class="form-control", type="text", id="inputName", placeholder="Котофей") }}
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        {{ form_modal_edit.surname.label(for="inputSurname") }}
+                                        {{ form_modal_edit.surname(class="form-control", type="text", id="inputSurname", placeholder="Мурзиков") }}
+
+                                    </div>
+                                </div>
+
+                                  <div class="form-group">
+                                      {{ form_modal_edit.email.label(for="inputEmail")}}
+                                      {{ form_modal_edit.email(class="form-control", type="email", id="inputEmail") }}
+                                      {% for error in form_modal_edit.email.errors %}
+                                            <p class="alert alert-danger" role="alert">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                  </div>
+
+                                <p>Дата рождения</p>
+                                  <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                      {{ form_modal_edit.day.label}}
+                                      {{ form_modal_edit.day(class="form-control") }}
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                      {{ form_modal_edit.month.label}}<br>
+                                      {{ form_modal_edit.month(class="form-control") }}
+                                    </div>
+
+                                      <div class="form-group col-md-4">
+                                      {{ form_modal_edit.year.label}}<br>
+                                      {{ form_modal_edit.year(class="form-control") }}
+                                    </div>
+                                  </div>
+                        </div>
+                        {% if message %}
+                            <p class="alert alert-danger" role="alert">{{ message }}<p>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer ">
+                        {{ form_modal_edit.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -123,13 +118,13 @@
     <div id="editAddress" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Добавление адреса</h3>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <form action="#" class="edit-profile-form text-center">
+                <form action="" class="edit-profile-form text-center" method="post">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Добавление адреса</h3>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
                             {{ form_address.hidden_tag() }}
                             {{ form_address.csrf_token }}
 
@@ -200,13 +195,12 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    {{ form_address.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
-                </div>
+                    <div class="modal-footer">
+                        {{ form_address.submit(type="submit", class="btn btn-primary modal-btn-custom") }}
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -66,6 +66,10 @@ class Order(SqlAlchemyBase):
     def __contains__(self, product: Product) -> bool:
         return product.id in [position.product_id for position in self.positions]
 
+    def update_total_cost(self) -> None:
+        total_cost = sum(map(lambda item: item.point_cost, self.positions))
+        self.total_cost = total_cost
+
     #  добавить продукт в заказ (при передаче объекта класса Product)
     #  (Она не работает поэтому закомментил
     # def add_product(self, product_id: int, count=1, extra_wishes=None) -> None:

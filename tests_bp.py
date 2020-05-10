@@ -1,5 +1,6 @@
 from flask import Blueprint
-from main import login_required, login_user
+from main import login_user
+from login_required import login_required
 from data.db_session import create_session
 from data.users import User
 
