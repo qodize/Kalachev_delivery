@@ -1,14 +1,19 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, request
 from forms.client_form import ClientForm
 from forms.address_form import AddressForm
 from login_required import login_required
 from flask_login import current_user, logout_user
 from main import login_user
+
 from forms.client_login_form import ClientLoginForm
 
 from data import db_session
 from data.users import User, ClientAddress
 from data.orders import Order
+from data.positions import Position
+from data.products import Product
+from data.categories import Category
+
 
 blueprint = Blueprint('clients_bp', __name__,
                       template_folder='templates')
@@ -86,7 +91,35 @@ def profile():
 @blueprint.route('/basket', methods=['GET', 'POST'])
 @login_required(role='client')
 def basket():
-    return render_template('basket.html', title='Корзина')
+    session = db_session.create_session()
+    user = session.query(User).filter(User.id == current_user.id).first()
+    basket = session.query(Order).filter(Order.client_id == user.id, Order.status == 0).first()
+    if request.method == 'POST':
+        req_form = dict(request.form)
+        if req_form['act'] == 'up':
+            position = session.query(Position).filter(Position.id == int(req_form['position_id'])).first()
+            position.count += 1
+            position.update_point_cost()
+            session.merge(position)
+            session.commit()
+        elif req_form['act'] == 'down':
+            position = session.query(Position).filter(Position.id == int(req_form['position_id'])).first()
+            position.count = max(0, position.count - 1)
+            position.update_point_cost()
+            session.merge(position)
+            if position.count == 0:
+                session.delete(position)
+            session.commit()
+        elif req_form['act'] == 'delete':
+            position = session.query(Position).filter(Position.id == int(req_form['position_id'])).first()
+            session.delete(position)
+            session.commit()
+        elif req_form['act'] == 'do order':
+            basket.status += 1
+            session.merge(basket)
+            session.commit()
+        return redirect('/basket')
+    return render_template('basket.html', title='Корзина', current_user=user, basket=basket)
 
 
 #  Создание заказа
@@ -98,7 +131,38 @@ def checkout():
 
 @blueprint.route('/menu', methods=['GET', 'POST'])
 def menu():
-    return render_template('menu.html', title='Меню')
+    session = db_session.create_session()
+    categories = session.query(Category).all()
+    if request.method == 'POST':
+        product_id = int(dict(request.form)['product_id'])
+        product = session.query(Product).filter(Product.id == product_id).first()
+        order = session.query(Order).filter(Order.client_id == current_user.id and Order.status == 0).first()
+        if not order:
+            order = Order(
+                client_id=current_user.id,
+                status=0,
+                total_cost=0
+            )
+            session.add(order)
+            session.commit()
+        if product in order:
+            position = session.query(Position).filter(Position.order_id == order.id and Position.product_id == product_id).first()
+            position.count += 1
+            position.update_point_cost()
+            session.merge(position)
+            session.commit()
+        else:
+            position = Position(
+                order=order,
+                product=product,
+                count=1
+            )
+            position.update_point_cost()
+            session.add(position)
+            session.commit()
+        return redirect('/menu')
+    return render_template('menu.html', title='Меню', categories=categories)
+
 
 # @blueprint.route('/product/<int:product_id>', methods=['GET', 'POST'])
 @blueprint.route('/product', methods=['GET', 'POST'])

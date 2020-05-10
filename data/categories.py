@@ -7,7 +7,8 @@ class Category(SqlAlchemyBase):
     __tablename__ = 'categories'
 
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
-    name = sa.Column(sa.String, nullable=True)
+    front_name = sa.Column(sa.String, nullable=True)
+    back_name = sa.Column(sa.String, nullable=True)
     describtion = sa.Column(sa.String, nullable=True)
 
     products = orm.relation('Product',

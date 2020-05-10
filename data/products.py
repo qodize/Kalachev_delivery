@@ -20,7 +20,7 @@ class Product(SqlAlchemyBase):
     cost = sa.Column(sa.Integer,
                      nullable=True)
 
-    category_id = sa.Column(sa.Integer, sa.ForeignKey("Category.id"),
+    category_id = sa.Column(sa.Integer, sa.ForeignKey("categories.id"),
                             nullable=True)
 
     positions = orm.relation('Position',
