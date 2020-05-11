@@ -42,7 +42,8 @@
                                     <div class="cart-menu-footer d-flex justify-content-around">
                                         <span>{{ product.cost }}</span>
                                         <form action="" method="post">
-                                            <button class="cart-btn" type="submit" name="product_id" value="{{ product.id }}"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>
+                                            <input hidden name="product_id" value="{{ product.id }}">
+                                            <button class="cart-btn" type="submit" name="act" value="to cart"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>
                                         </form>
                                     </div>
                                 </div>

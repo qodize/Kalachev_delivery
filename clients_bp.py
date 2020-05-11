@@ -73,6 +73,7 @@ def profile():
         user.birthday = '.'.join([form.day.data, form.month.data, form.year.data])
         session.merge(user)
         session.commit()
+        return redirect('/profile')
     if form_address.validate_on_submit():
         address = ClientAddress(
             client=user,
@@ -82,6 +83,7 @@ def profile():
         )
         session.add(address)
         session.commit()
+        return redirect('/profile')
     user.client_orders = list(reversed(user.client_orders))
     return render_template('profile.html', title='Профиль', form_modal_edit=form,
                            form_address=form_address, current_user=user)
@@ -134,33 +136,37 @@ def menu():
     session = db_session.create_session()
     categories = session.query(Category).all()
     if request.method == 'POST':
-        product_id = int(dict(request.form)['product_id'])
-        product = session.query(Product).filter(Product.id == product_id).first()
-        order = session.query(Order).filter(Order.client_id == current_user.id and Order.status == 0).first()
-        if not order:
-            order = Order(
-                client_id=current_user.id,
-                status=0,
-                total_cost=0
-            )
-            session.add(order)
-            session.commit()
-        if product in order:
-            position = session.query(Position).filter(Position.order_id == order.id and Position.product_id == product_id).first()
-            position.count += 1
-            position.update_point_cost()
-            session.merge(position)
-            session.commit()
-        else:
-            position = Position(
-                order=order,
-                product=product,
-                count=1
-            )
-            position.update_point_cost()
-            session.add(position)
-            session.commit()
-        return redirect('/menu')
+        req_form = dict(request.form)
+        if req_form['act'] == 'to cart' and current_user.is_authenticated:
+            product_id = int(req_form['product_id'])
+            product = session.query(Product).filter(Product.id == product_id).first()
+            order = session.query(Order).filter(Order.client_id == current_user.id and Order.status == 0).first()
+            if not order:
+                order = Order(
+                    client_id=current_user.id,
+                    status=0,
+                    total_cost=0
+                )
+                session.add(order)
+                session.commit()
+            if product in order:
+                position = session.query(Position).filter(Position.order_id == order.id and Position.product_id == product_id).first()
+                position.count += 1
+                position.update_point_cost()
+                session.merge(position)
+                session.commit()
+            else:
+                position = Position(
+                    order=order,
+                    product=product,
+                    count=1
+                )
+                position.update_point_cost()
+                session.add(position)
+                session.commit()
+            return redirect('/menu')
+        elif not current_user.is_authenticated:
+            return redirect('/login')
     return render_template('menu.html', title='Меню', categories=categories)
 
 
