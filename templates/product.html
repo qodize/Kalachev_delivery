@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="product-head text-center">{{ product.front_name }}</h2>
+    <div class="row">
+        <div class="col-md-4" style="background: #efefef;">
+            <img src="../static/img/{{ product.back_name }}" alt="Фото товара">
+        </div>
+        <div class="col-md-6 product-info">
+            <p class="product-components">Состав: {{ product.ingredients }}</p>
+            <br>
+            <p>{{ product.describtion }}</p>
+            <form action="" method="post">
+                <input hidden name="product_id" value="{{ product.id }}">
+                <button type="submit" class="modal-btn-custom" name="act" value="to cart">В КОРЗИНУ</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

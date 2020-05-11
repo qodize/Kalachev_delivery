@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container menu-content">
+    <h2 class="menu-head text-center">Текст</h2>
+    <div class="row">
+        <div class="col-3 menu-list-group">
+            <!-- List group -->
+            <div class="list-group " id="myList" role="tablist">
+                {% for category in categories %}
+                <a class="list-group-item list-group-item-action big-pizza" data-toggle="list" href="#{{ category.back_name }}" role="tab">{{ category.front_name }}</a>
+                {% endfor %}
+{#                <a class="list-group-item list-group-item-action big-pizza" data-toggle="list" href="#big-pizza" role="tab">Большая пицца</a>#}
+{#                <a class="list-group-item list-group-item-action" data-toggle="list" href="#small-pizza" role="tab">Маленькая пицца</a>#}
+{#                <a class="list-group-item list-group-item-action" data-toggle="list" href="#dessert" role="tab">Десерты</a>#}
+{#                <a class="list-group-item list-group-item-action" data-toggle="list" href="#pancake" role="tab">Блины</a>#}
+{#                <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">"Манявы"</a>#}
+{##}
+{#                <a href="#breakfast" id="collapseExample" class="collapse list-group-item list-group-item-action" data-toggle="list" role="tab">Завтраки</a>#}
+{#                <a href="#soup" id="collapseExample" class="collapse list-group-item list-group-item-action" data-toggle="list" role="tab">Супы и салаты</a>#}
+{#                <a href="#meat" id="collapseExample" class="collapse list-group-item list-group-item-action" data-toggle="list" role="tab">Мясо и рыбка</a>#}
+{#                <a href="#garnish" id="collapseExample" class="collapse list-group-item list-group-item-action" data-toggle="list" role="tab">Гарниры</a>#}
+{##}
+{#                <a class="list-group-item list-group-item-action" data-toggle="list" href="#wine" role="tab">Винная карта</a>#}
+            </div>
+        </div>
+        <div class="col-9">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                {% for category in categories %}
+                <div class="tab-pane fade active" id="{{ category.back_name }}">
+                    <div class="card-columns">
+                        {% for product in category.products %}
+                        <div class="card ">
+                            <div class="menu-img">
+                                <a href="/product">
+                                    <img class="card-img-top" src="../static/img/{{ product.back_name }}" alt="Card image cap">
+                                </a>
+                                <div class="card-body">
+                                    <h6 class="card-title">{{ product.front_name }}</h6>
+                                    <div class="cart-menu-footer d-flex justify-content-around">
+                                        <span>{{ product.cost }}</span>
+                                        <form action="" method="post">
+                                            <input hidden name="product_id" value="{{ product.id }}">
+                                            <button class="cart-btn" type="submit" name="act" value="to cart"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+{#                <div class="tab-pane fade active" id="big-pizza">#}
+{#                    <div class="card-columns">#}
+{##}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <a href="/product">#}
+{#                                    <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                                </a>#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#                <div class="tab-pane fade" id="small-pizza" role="tabpanel">#}
+{##}
+{#                    <div class="card-columns">#}
+{#                      <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/pizza3.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                        <div class="card ">#}
+{#                            <div class="menu-img">#}
+{#                                <img class="card-img-top" src="../static/img/pizza3.jpg" alt="Card image cap">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h6 class="card-title">Супер длинное название еды со всякими добавками</h6>#}
+{#                                <div class="cart-menu-footer d-flex justify-content-around">#}
+{#                                    <span>Цена</span>#}
+{#                                    <button class="cart-btn"><img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png"/></button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="tab-pane fade" id="dessert" role="tabpanel">...</div>#}
+{#                <div class="tab-pane fade" id="pancake" role="tabpanel">...</div>#}
+{#                <div class="tab-pane fade" id="breakfast" role="tabpanel">Завтраки</div>#}
+{#                <div class="tab-pane fade" id="soup" role="tabpanel">Супы</div>#}
+{#                <div class="tab-pane fade" id="meat" role="tabpanel">Мясо</div>#}
+{#                <div class="tab-pane fade" id="garnish" role="tabpanel">Гарниры</div>#}
+{##}
+{#                <div class="tab-pane fade" id="wine" role="tabpanel">...</div>#}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
