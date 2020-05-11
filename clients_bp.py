@@ -66,6 +66,10 @@ def profile():
     form_address = AddressForm()
     session = db_session.create_session()
     user = session.query(User).filter(User.id == current_user.id).first()
+    for order in user.client_orders:
+        order.update_total_cost()
+        session.merge(order)
+        session.commit()
     if form.validate_on_submit():
         user.name = form.name.data
         user.surname = form.surname.data
@@ -96,6 +100,7 @@ def basket():
     session = db_session.create_session()
     user = session.query(User).filter(User.id == current_user.id).first()
     basket = session.query(Order).filter(Order.client_id == user.id, Order.status == 0).first()
+    basket.update_total_cost()
     if request.method == 'POST':
         req_form = dict(request.form)
         if req_form['act'] == 'up':
