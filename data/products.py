@@ -20,6 +20,11 @@ class Product(SqlAlchemyBase):
     cost = sa.Column(sa.Integer,
                      nullable=True)
 
+    category_id = sa.Column(sa.Integer, sa.ForeignKey("categories.id"),
+                            nullable=True)
+
     positions = orm.relation('Position',
                              back_populates='product',
                              foreign_keys='Position.product_id')
+
+    category = orm.relation('Category', foreign_keys=[category_id])

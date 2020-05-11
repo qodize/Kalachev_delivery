@@ -8,7 +8,7 @@ from data.users import User, ClientAddress, WorkerData
 from data.orders import Order
 from data.products import Product
 from data.positions import Position
-
+from data.categories import Category
 
 import admins_bp
 import clients_bp

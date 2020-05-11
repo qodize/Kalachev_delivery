@@ -142,15 +142,14 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="" class="edit-profile-form text-center" method="post">
+                     {{ form_address.hidden_tag() }}
+                        {{ form_address.csrf_token }}
                     <div class="modal-header">
                         <h3 class="modal-title">Добавление адреса</h3>
                         <button type="button" class="close" data-dismiss="modal">×</button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            {{ form_address.hidden_tag() }}
-                            {{ form_address.csrf_token }}
-
                             <div class="form-group">
                                 {{ form_address.city.label}}
                                 {{ form_address.city(class="form-control") }}
