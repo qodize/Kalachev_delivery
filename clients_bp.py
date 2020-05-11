@@ -120,6 +120,10 @@ def basket():
             basket.status += 1
             session.merge(basket)
             session.commit()
+            basket = Order(client=user)
+            basket.update_total_cost()
+            session.add(basket)
+            session.commit()
         return redirect('/basket')
     return render_template('basket.html', title='Корзина', current_user=user, basket=basket)
 
@@ -140,7 +144,7 @@ def menu():
         if req_form['act'] == 'to cart' and current_user.is_authenticated:
             product_id = int(req_form['product_id'])
             product = session.query(Product).filter(Product.id == product_id).first()
-            order = session.query(Order).filter(Order.client_id == current_user.id and Order.status == 0).first()
+            order = session.query(Order).filter(Order.client_id == current_user.id).filter(Order.status == 0).first()
             if not order:
                 order = Order(
                     client_id=current_user.id,
