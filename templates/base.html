@@ -40,11 +40,15 @@
                             <a class="nav-link" href="/about">О&nbsp;нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/cart">Корзина</a>
+                            <a class="nav-link" href="/basket">Корзина</a>
                         </li>
                     </ul>
                     <!-- Этот блок расположен справа -->
-                    <a class="main-login-btn" href="/login">ВОЙТИ</a>
+                    {% if current_user.is_authenticated %}
+                        <a class="main-login-btn" href="/profile">ПРОФИЛЬ</a>
+                    {% else %}
+                        <a class="main-login-btn" href="/login">ВОЙТИ</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>

@@ -8,8 +8,8 @@ class AddressForm(FlaskForm):
     street = StringField("Улица*", validators=[DataRequired()])
     house_number = StringField("Номер дома*", validators=[DataRequired()])
     flat = StringField("Квартира / офис*", validators=[DataRequired()])
-    entrance = IntegerField("Подъезд")
-    floor = IntegerField("Этаж")
-    doorphone = IntegerField("Код домофона")
+    entrance = StringField("Подъезд")
+    floor = StringField("Этаж")
+    doorphone = StringField("Код домофона")
 
     submit = SubmitField("ПРИНЯТЬ")
