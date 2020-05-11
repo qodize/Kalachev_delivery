@@ -25,7 +25,7 @@ def client_login():
     form = ClientLoginForm()
     if form.validate_on_submit():
         session = db_session.create_session()
-        user = session.query(User).filter(User.role == 'client' and User.phone_number == form.phone_number.data).first()
+        user = session.query(User).filter(User.role == 'client').filter(User.phone_number == form.phone_number.data).first()
         if user:
             login_user(user, remember=True)
             return redirect('/')
