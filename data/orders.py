@@ -27,6 +27,14 @@ class Order(SqlAlchemyBase):
                              nullable=True)
     delivery_time = sa.Column(sa.String,
                               nullable=True)
+    payment_way = sa.Column(sa.String,
+                            nullable=True)
+    short_change = sa.Column(sa.Integer,
+                             nullable=True)
+    commentary = sa.Column(sa.String,
+                           nullable=True)
+    order_date = sa.Column(sa.Date,
+                           nullable=True)
     status = sa.Column(sa.Integer,
                        default=0)
     total_cost = sa.Column(sa.Integer,
