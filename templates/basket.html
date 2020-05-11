@@ -3,12 +3,13 @@
 
 {% block content %}
     <h1 style="font: bold 40px 'Roboto Slab'; text-align: center; margin-top: 50px; margin-bottom: 20px;">Корзина</h1>
-    {% if basket.positions %}'
-    {% for position in basket.positions %}
+    <!-- Здесь начинается сама строчка с заказом -->
+ {% for position in basket.positions %}
     <div class="container-fluid offer-container">
         <div class="container">
             <div class="row dish-info">
                 <div class="col-2 photo-dish">
+                    <img class="card-img-top" src="../static/img/{{  position.product.back_name }}" alt="Card image cap">
                 </div>
                 <div class="col-5 description-dish">
                     <span>{{ position.product.front_name }}</span>
@@ -23,46 +24,23 @@
                 </form>
                 <form class="col-2 curr-price-item" action="" method="post">
                     <input hidden name="position_id" value="{{ position.id }}">
-                    <button type="submit" class="close" name="act" value="delete"></button>
+                    <button type="submit" class="close-basket" name="act" value="delete"></button>
                     <p>{{ position.point_cost }}</p>
                 </form>
             </div>
         </div>
     </div>
-    {% endfor %}
-    <div class="container-fluid" style="margin-top: 100px;">
+ {% endfor %}
+    <!-- Конец -->
+    <div class="container-fluid">
         <div class="container">
-            <div class="row">
-                <div class="col-12 text-center"><span style="font: bold 32px 'Roboto Slab'">
-                    Общая сумма заказа:
-                </span>
-                    <span style="font: bold 32px 'Roboto Slab'; color: #FC6E20;">
-                        <!-- СЮДА ПИСАТЬ СУММУ ЗАКАЗА-->1337р.
-                    </span></div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid" style="margin-top: 100px;">
-        <div class="container">
-            <form action="" method="post">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <p><b>Комментарий к заказу</b></p>
-                        <p><textarea rows="10" cols="45" name="comment-offer" placeholder="Вводите текст сюда"
-                        style="border-radius: 10px; padding: 2px 5px; border: none;
-                        box-shadow: 0 0 10px rgba(0,0,0,0.5); resize: none;"></textarea></p>
-                        <p><b>Способ оплаты:</b></p>
-                        <p><input name="pay_radio" type="radio" value="cash"> Наличными</p>
-                        <p><input name="pay_radio" type="radio" value="online_pay"> Онлайн-оплата</p>
-                        <p><input name="pay_radio" type="radio" value="bank_pay" checked> Банковской картой (курьер)</p>
-                        <button type="submit" class="btn-form-order" name="act" value="do order">ОФОРМИТЬ ЗАКАЗ</button>
-                    </div>
-                </div>
-
+            {% if basket.positions %}
+            <form class="d-flex justify-content-end" action="" method="post">
+                <button type="submit" class="btn-form-order" name="act" value="do order">ОФОРМИТЬ ЗАКАЗ</button>
             </form>
+            {% else %}
+                <p class="text-center">Ваша корзина пуста</p>
+            {% endif %}
         </div>
     </div>
-    {% else %}
-        <h1 class="text-center" style="font: bold 28px 'Roboto Slab'; margin-top: 70px;">Корзина пуста</h1>
-    {% endif %}
 {% endblock %}
