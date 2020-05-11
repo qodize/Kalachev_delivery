@@ -100,6 +100,7 @@ def basket():
     user = session.query(User).filter(User.id == current_user.id).first()
     basket = session.query(Order).filter(Order.client_id == user.id, Order.status == 0).first()
     basket.update_total_cost()
+    session.commit()
     if request.method == 'POST':
         req_form = dict(request.form)
         if req_form['act'] == 'up':

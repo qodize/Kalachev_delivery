@@ -40,6 +40,28 @@ def main():
     app.register_blueprint(deliverymen_bp.blueprint, url_prefix='/deliveryman')
 
     session = db_session.create_session()
+    # admin = User(
+    #     phone_number='+79872597681',
+    #     role='admin'
+    # )
+    # session.add(admin)
+    # worker_data = WorkerData(
+    #     worker=admin
+    # )
+    # worker_data.set_password("123")
+    # session.add(worker_data)
+    # session.commit()
+    # cook = User(
+    #     phone_number='+79872597682',
+    #     role='cook'
+    # )
+    # session.add(cook)
+    # worker_data2 = WorkerData(
+    #     worker=cook
+    # )
+    # worker_data2.set_password("123")
+    # session.add(worker_data2)
+    # session.commit()
     category1 = Category(
         front_name='Большая пицца',
         back_name='big-pizza',
