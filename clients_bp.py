@@ -174,9 +174,40 @@ def menu():
     return render_template('menu.html', title='Меню', categories=categories)
 
 
-# @blueprint.route('/product/<int:product_id>', methods=['GET', 'POST'])
-@blueprint.route('/product', methods=['GET', 'POST'])
-def products():
-    product_title = 'Название товара'
-    return render_template('product.html', product_title=product_title)
-
+@blueprint.route('/product/<int:product_id>', methods=['GET', 'POST'])
+def product(product_id: int):
+    session = db_session.create_session()
+    product = session.query(Product).get(product_id)
+    if request.method == 'POST':
+        req_form = dict(request.form)
+        if req_form['act'] == 'to cart':
+            product_id = product.id
+            order = session.query(Order).filter(Order.client_id == current_user.id).filter(Order.status == 0).first()
+            if not order:
+                order = Order(
+                    client_id=current_user.id,
+                    status=0,
+                    total_cost=0
+                )
+                session.add(order)
+                session.commit()
+            if product in order:
+                position = session.query(Position).filter(
+                    Position.order_id == order.id and Position.product_id == product_id).first()
+                position.count += 1
+                position.update_point_cost()
+                session.merge(position)
+                session.commit()
+            else:
+                position = Position(
+                    order=order,
+                    product=product,
+                    count=1
+                )
+                position.update_point_cost()
+                session.add(position)
+                session.commit()
+            return redirect('/menu')
+        elif not current_user.is_authenticated:
+            return redirect('/login')
+    return render_template('product.html', product=product)

@@ -34,7 +34,7 @@
                         {% for product in category.products %}
                         <div class="card ">
                             <div class="menu-img">
-                                <a href="/product">
+                                <a href="/product/{{ product.id }}">
                                     <img class="card-img-top" src="../static/img/{{ product.back_name }}" alt="Card image cap">
                                 </a>
                                 <div class="card-body">
