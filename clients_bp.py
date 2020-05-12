@@ -57,6 +57,10 @@ def logout():
 def index():
     return render_template('home.html', title='Главная')
 
+# О нас
+@blueprint.route('/about', methods=['GET'])
+def about_us():
+    return render_template('base.html', title='О нас')
 
 #  ЛК
 @blueprint.route('/profile', methods=['GET', 'POST'])

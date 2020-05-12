@@ -32,7 +32,7 @@
     </div>
     {% endfor %}
     <div class="container-fluid" style="margin-top: 100px;">
-        <div class="container">
+        <div class="container" style="background: #efefef; padding: 15px 0;">
             <div class="row">
                 <div class="col-12 text-center"><span style="font: bold 32px 'Roboto Slab'">
                     Общая сумма заказа:
@@ -49,23 +49,23 @@
             <form action="" method="post">
                 <div class="row">
                     <div class="col-12 text-center">
-                        <p><b>Комментарий к заказу</b></p>
+                        <h5 style="margin-bottom: 25px;"><b>Комментарий к заказу</b></h5>
                         <p><textarea rows="10" cols="45" name="comment-offer" placeholder="Вводите текст сюда"
-                        style="border-radius: 10px; padding: 2px 5px; border: none;
+                        style="border-radius: 10px; padding: 15px 18px; border: none;
                         box-shadow: 0 0 10px rgba(0,0,0,0.5); resize: none;"></textarea></p>
-                        <p><b>Способ оплаты:</b></p>
+                        <h5 style="margin-top: 50px; margin-bottom: 25px;"><b>Способ оплаты:</b></h5>
                         <p><input name="pay_radio" type="radio" value="cash"> Наличными</p>
                         <p><input name="pay_radio" type="radio" value="online_pay"> Онлайн-оплата</p>
                         <p><input name="pay_radio" type="radio" value="bank_pay" checked> Банковской картой (курьер)</p>
                         {% if current_user.addresses %}
-                        <p style="margin-top: 50px; font: bold 18px 'Roboto Slab'">Доставить на адрес: </p>
+                        <h5 style="margin-top: 50px; font: bold 18px 'Roboto Slab'">Доставить на адрес: </h5>
                         <select class="form-control form-control-lg" name="address">
                             {% for address in current_user.addresses %}
                             <option>{{ address.data }}</option>
                             {% endfor %}
                         </select>
                         {% else %}
-                        <p>У вас нету адресов в Личном Кабинете. <a href="/profile" style="text-decoration: none; color: #FC6E20;">Добавить</a></p>
+                        <p>У вас нет адресов в Личном Кабинете.  <a href="/profile" style="text-decoration: none; color: #FC6E20;">Добавить</a></p>
                         {% endif %}
                         <button type="submit" class="btn-form-order" name="act" value="do order">ОФОРМИТЬ ЗАКАЗ</button>
                     </div>

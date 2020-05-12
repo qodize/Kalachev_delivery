@@ -1,11 +1,12 @@
 from flask import Blueprint
 from login_required import login_required
-from flask import Blueprint, redirect, render_template
+from flask import Blueprint, redirect, render_template, request
 from flask_login import current_user, logout_user
 from main import login_user
 
 from data import db_session
 from data.users import User
+from data.orders import Order
 from forms.worker_login_form import WorkerLoginForm
 
 blueprint = Blueprint('deliverymen_bp', __name__,
@@ -38,4 +39,30 @@ def logout():
 @blueprint.route('/orders', methods=['GET', 'POST'])
 @login_required(role='deliveryman')
 def deliveryman_orders():
-    return render_template('deliveryman_orders.html', title='Заказы')
+    session = db_session.create_session()
+    new_orders = session.query(Order).filter(Order.status == 3).all()
+    delivering_orders = session.query(Order).filter(Order.status == 4, Order.deliveryman_id == current_user.id).all()
+    done_orders = session.query(Order).filter(Order.status == 5, Order.deliveryman_id == current_user.id).all()
+    if request.method == 'POST':
+        req_form = dict(request.form)
+        if req_form['act'] == 'accept order':
+            order_id = req_form['order_id']
+            order = session.query(Order).get(order_id)
+            if order.status == 3:
+                deliveryman = session.query(User).get(current_user.id)
+                order.increase_status(deliveryman=deliveryman)
+                session.merge(order)
+                session.commit()
+            return redirect('/deliveryman/orders')
+        elif req_form['act'] == 'order done':
+            order_id = req_form['order_id']
+            order = session.query(Order).get(order_id)
+            order.increase_status()
+            session.merge(order)
+            session.commit()
+            return redirect('/deliveryman/orders')
+
+    return render_template('deliveryman_orders.html', title='Заказы',
+                           new_orders=new_orders,
+                           delivering_orders=delivering_orders,
+                           done_orders=done_orders)

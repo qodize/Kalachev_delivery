@@ -374,6 +374,27 @@ footer {
     transition:400ms ease all;
 }
 
+
+.logout-profile-btn {
+    margin-top: 60px;
+    padding: 10px 40px;
+    font-size: 18px;
+    border-radius: 7px;
+    background: #FC6E20;
+    border: none;
+    color: #ffffff;
+    transition:500ms ease all;
+}
+
+.logout-profile-btn:hover {
+    color: #FC6E20;
+    background: #fff;
+    text-decoration: none;
+    border: #FC6E20 2px solid;
+    font-weight: bold;
+    transition:400ms ease all;
+}
+
 .adress-btn-info {
     position: relative;
     font: bold 12px "Roboto Slab";
@@ -650,231 +671,14 @@ background: #EFEFEF;
     border-radius: 5px;
 }
 
-.product-head {
-    margin-top: 50px;
-    margin-bottom: 40px;
-}
-
 .menu-list-group .list-group-item:active {
     background-color: #FC6E20;
-}
-.product-info p {
-    font-size: 1.2rem;
-    font-weight: 300;
 }
 
 .menu-head {
     margin-bottom: 40px;
     font-weight: 300;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* Стили для корзины */
@@ -1123,6 +927,10 @@ background: #EFEFEF;
     font-weight: 300;
 }
 
+.product-img img {
+    max-width: 350px;
+    object-fit: cover;
+}
 
 /* Стили для корзины */
 
