@@ -11,7 +11,7 @@
         <div class="col-md-6 product-info">
             <p class="product-components">Состав: {{ product.ingredients }}</p>
             <br>
-            <p>{{ product.describtion }}</p>
+            <p class="product-components">{{ product.description }}</p>
             <form action="" method="post">
                 <input hidden name="product_id" value="{{ product.id }}">
                 <button type="submit" class="modal-btn-custom" name="act" value="to cart">В КОРЗИНУ</button>
