@@ -33,7 +33,15 @@
                                     {% endfor %}
                                 </div>
                             </div>
-
+                            <div class="form-row">
+                                {{ form.passport.label }}
+                                {{ form.passport(class="form-control") }}
+                                {% for error in form.passport.errors %}
+                                    <p class="alert alert-danger" role="alert">
+                                        {{ error }}
+                                    </p>
+                                {% endfor %}
+                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     {{ form.phone_number.label}}

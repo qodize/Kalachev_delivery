@@ -59,7 +59,7 @@
                         <p><input name="pay_radio" type="radio" value="bank_pay" checked> Банковской картой (курьер)</p>
                         {% if current_user.addresses %}
                         <p style="margin-top: 50px; font: bold 18px 'Roboto Slab'">Доставить на адрес: </p>
-                        <select class="form-control form-control-lg">
+                        <select class="form-control form-control-lg" name="address">
                             {% for address in current_user.addresses %}
                             <option>{{ address.data }}</option>
                             {% endfor %}

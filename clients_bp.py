@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template, redirect, request
 from forms.client_form import ClientForm
 from forms.address_form import AddressForm
@@ -122,6 +123,10 @@ def basket():
             session.delete(position)
             session.commit()
         elif req_form['act'] == 'do order':
+            basket.address_data = req_form['address']
+            basket.payment_way = req_form['pay_radio']
+            basket.commentary = req_form['comment-offer']
+            basket.order_date = datetime.today().date()
             basket.status += 1
             session.merge(basket)
             session.commit()

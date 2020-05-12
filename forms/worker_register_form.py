@@ -7,8 +7,9 @@ from wtforms.fields.html5 import EmailField
 class WorkerRegisterForm(FlaskForm):
     name = StringField("Имя", validators=[DataRequired()])
     surname = StringField("Фамилия", validators=[DataRequired()])
+    passport = StringField("Паспортные данные", validators=[DataRequired()])
     phone_number = StringField("Номер телефона", validators=[DataRequired()])
-    email =  EmailField("E-mail", validators=[DataRequired()])
+    email = EmailField("E-mail", validators=[DataRequired()])
     birthday = StringField("День рождения", validators=[DataRequired()])
     address = StringField("Адрес работы", validators=[DataRequired()])
     password = PasswordField("Пароль", validators=[DataRequired()])
