@@ -18,7 +18,7 @@ def cook_login():
     form = WorkerLoginForm()
     if form.validate_on_submit():
         session = db_session.create_session()
-        user = session.query(User).filter(User.role == 'cook' and User.phone_number == form.phone_number.data).first()
+        user = session.query(User).filter(User.role == 'cook', User.phone_number == form.phone_number.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=True)
             return redirect('/cook/orders')

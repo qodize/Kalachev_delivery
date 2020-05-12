@@ -62,6 +62,19 @@ def main():
     # worker_data2.set_password("123")
     # session.add(worker_data2)
     # session.commit()
+    #
+    # deliveryman = User(
+    #     phone_number='+79872597683',
+    #     role='deliveryman'
+    # )
+    # session.add(deliveryman)
+    # worker_data3 = WorkerData(
+    #     worker=deliveryman
+    # )
+    # worker_data3.set_password("123")
+    # session.add(worker_data3)
+    # session.commit()
+
     category1 = Category(
         front_name='Большая пицца',
         back_name='big-pizza',

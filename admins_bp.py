@@ -18,7 +18,7 @@ def login():
     form = WorkerLoginForm()
     if form.validate_on_submit():
         session = db_session.create_session()
-        admin = session.query(User).filter(User.role == 'admin' and User.phone_number == form.phone_number.data).first()
+        admin = session.query(User).filter(User.role == 'admin', User.phone_number == form.phone_number.data).first()
         if admin and admin.check_password(form.password.data):
             login_user(admin, remember=True)
             return redirect('/admin/')
@@ -37,6 +37,7 @@ def logout():
     logout_user()
     return redirect("/admin/login")
 
+
 @blueprint.route('/', methods=['GET', 'POST'])
 @login_required(role='admin')
 def admin_home():
@@ -49,7 +50,7 @@ def register_worker(role: str):
     form = WorkerRegisterForm()
     if form.validate_on_submit():
         session = db_session.create_session()
-        worker = session.query(User).filter(User.role == role and User.phone_number == form.phone_number.data).first()
+        worker = session.query(User).filter(User.role == role, User.phone_number == form.phone_number.data).first()
         if worker:
             return render_template(
                 'worker_registration.html',
