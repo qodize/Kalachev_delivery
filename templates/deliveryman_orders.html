@@ -5,144 +5,93 @@
 <div class="container-fluid order-delivery-container">
     <div class="row text-center">
     <div class="col-md-4">
-        <h2 class="orders-head text-center">Готовые заказы</h2>
+        <h2 class="orders-head text-center">Новые заказы</h2>
         <div class="card-columns" style="column-count: 1;">
+            {% for order in new_orders %}
             <div class="card order-card" style="width: 80%">
                 <div class="card-body text-center">
-                    <h4 class="card-title"><a href="#showOrder" data-toggle="modal">Заказ №</a></h4>
-                    <p>Позиций: </p>
-                    <p>Адрес: </p>
-                    <p>Общая стоимость:  </p>
+                    <h4 class="card-title"><a href="#showOrder{{ order.id }}" data-toggle="modal">Заказ № {{ order.id }}</a></h4>
+                    <p>Позиций: {{ order.positions.__len__() }}</p>
+                    <p>Адрес: {{ order.address_data }}</p>
+                    <p>Общая стоимость: {{ order.total_cost }} р.</p>
                     <div class="text-center">
                         <form action="" method="post">
-                            <input hidden name="product_id" value="">
-                            <button class="card-order-btn" type="submit" name="act" value="to cart">ПРИНЯТЬ</button>
+                            <input hidden name="order_id" value="{{ order.id }}">
+                            <button class="card-order-btn" type="submit" name="act" value="accept order">ПРИНЯТЬ</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="card order-card" style="width: 80%">
-                <div class="card-body text-center">
-                    <h4 class="card-title"><a href="#showOrder" data-toggle="modal">Заказ №1000</a></h4>
-                    <p>Позиций: </p>
-                    <p>Адрес: </p>
-                    <p>Общая стоимость: </p>
-                    <div class="text-center">
-                        <form action="" method="post">
-                            <input hidden name="product_id" value="">
-                            <button class="card-order-btn" type="submit" name="act" value="to cart">ПРИНЯТЬ</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
     <div class="col-md-4">
         <h2 class="orders-head text-center">Доставляются вами</h2>
         <div class="card-columns" style="column-count: 1;">
+            {% for order in delivering_orders %}
             <div class="card order-card" style="width: 80%">
                 <div class="card-body text-center">
-                    <h4 class="card-title"><a href="#showOrder" data-toggle="modal">Заказ №</a></h4>
-                    <p>Позиций: </p>
-                    <p>Адрес: </p>
-                    <p>Общая стоимость: </p>
-
+                    <h4 class="card-title"><a href="#showOrder{{ order.id }}" data-toggle="modal">Заказ № {{ order.id }}</a></h4>
+                    <p>Позиций: {{ order.positions.__len__() }}</p>
+                    <p>Адрес: {{ order.address_data }}</p>
+                    <p>Общая стоимость: {{ order.total_cost }} р.</p>
                     <div class="text-center">
                         <form action="" method="post">
-                            <input hidden name="product_id" value="">
-                            <button class="card-order-btn" type="submit" name="act" value="to cart">ДОСТАВЛЕНО</button>
+                            <input hidden name="order_id" value="{{ order.id }}">
+                            <button class="card-order-btn" type="submit" name="act" value="order done">ГОТОВО</button>
                         </form>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
     <div class="col-md-4">
         <h2 class="orders-head text-center">Доставленные</h2>
         <div class="card-columns" style="column-count: 1;">
+            {% for order in done_orders %}
             <div class="card order-card" style="width: 80%">
-
                 <div class="card-body text-center">
-                    <h4 class="card-title"><a href="#showOrder" data-toggle="modal">Заказ №</a></h4>
-                    <p>Позиций: </p>
-                    <p>Адрес: </p>
-                    <p>Общая стоимость: </p>
-                    <span>Доставлено</span>
+                    <h4 class="card-title"><a href="#showOrder{{ order.id }}" data-toggle="modal">Заказ № {{ order.id }}</a></h4>
+                    <p>Позиций: {{ order.positions.__len__() }}</p>
+                    <p>Адрес: {{ order.address_data }}</p>
+                    <p>Общая стоимость: {{ order.total_cost }} р.</p>
+                    <span>{{ order.statuses[order.status] }}</span>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
     </div>
 </div>
 
-<!-- HTML-код модального окна (просмотр заказа) -->
-    <div id="showOrder" class="modal fade" tabindex="-1">
+{# модальные окна для новых заказов #}
+    {% for ls in [new_orders, delivering_orders, done_orders] %}
+    {% for order in ls %}
+    <div id="showOrder{{ order.id }}" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content order-modal">
                 <div class="modal-header">
-                        <h3 class="modal-title" style="padding-left: 300px;">Заказ №</h3>
-                        <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 class="modal-title" style="padding-left: 300px;">Заказ № {{ order.id }}</h3>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
-                <div class="modal-body order-modal-body">
-                <!--{# for position in basket.positions #}-->
-                    <div class="container-fluid offer-container">
-                            <div class="row dish-info">
-                                <div class="col-2 photo-dish">
-                                    <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg{#  position.product.back_name #}" alt="Card image cap">
-                                </div>
-                                <div class="col-5 description-dish">
-                                    <span>Название{# position.product.front_name #}</span>
-                                    <p>Описание: {# position.product.describtion #}</p>
-                                </div>
-                                <div class="col-3 counter-value">
-                                    <span>Кол-во</span>
-                                    <input disabled type="number" min="0" max="100" value="{# position.count #}3" readonly class="count-val">
-                                </div>
-                                <div class="col-2 curr-price-item">
-                                    <p> Цена {# position.point_cost #}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container-fluid offer-container">
-                            <div class="row dish-info">
-                                <div class="col-2 photo-dish">
-                                    <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg{#  position.product.back_name #}" alt="Card image cap">
-                                </div>
-                                <div class="col-5 description-dish">
-                                    <span>Название{# position.product.front_name #}</span>
-                                    <p>Описание: {# position.product.describtion #}</p>
-                                </div>
-                                <div class="col-3 counter-value">
-                                    <span>Кол-во</span>
-                                    <input disabled type="number" min="0" max="100" value="{# position.count #}3" readonly class="count-val">
-                                </div>
-                                <div class="col-2 curr-price-item">
-                                    <p> Цена {# position.point_cost #}</p>
-                                </div>
-                            </div>
-                        </div>
-                    <div class="container-fluid offer-container">
-                            <div class="row dish-info">
-                                <div class="col-2 photo-dish">
-                                    <img class="card-img-top" src="../static/img/zakIardbo_Q.jpg{#  position.product.back_name #}" alt="Card image cap">
-                                </div>
-                                <div class="col-5 description-dish">
-                                    <span>Название{# position.product.front_name #}</span>
-                                    <p>Описание: {# position.product.describtion #}</p>
-                                </div>
-                                <div class="col-3 counter-value">
-                                    <span>Кол-во</span>
-                                    <input disabled type="number" min="0" max="100" value="{# position.count #}3" readonly class="count-val">
-                                </div>
-                                <div class="col-2 curr-price-item">
-                                    <p> Цена {# position.point_cost #}</p>
-                                </div>
-                            </div>
+
+                <div class="modal-body order-modal-body" style="margin-bottom: 25px;">
+                        <div class="container-fluid text-center" style="margin-top: 25px;">
+                            <p><b>Адрес:</b> {{ order.address_data }}</p>
+                            <p><b>Время доставки:</b> {{ order.delivery_time }}</p>
+                            <p><b>Способ оплаты:</b> {{ order.payment_way }}</p>
+                            <p><b>Позиций:</b> {{ order.positions.__len__() }} шт.</p>
+                            <p><b>Цена:</b> {{ order.total_cost }} р.</p>
+                            <p><b>Комментарий:</b> {{ order.commentary }}</p>
                         </div>
 
-                 {# endfor #}
                 </div>
-                </div> </div> </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
 
 
 {% endblock %}
