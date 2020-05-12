@@ -38,8 +38,9 @@
                     Общая сумма заказа:
                 </span>
                     <span style="font: bold 32px 'Roboto Slab'; color: #FC6E20;">
-                        <!-- СЮДА ПИСАТЬ СУММУ ЗАКАЗА-->1337р.
-                    </span></div>
+                        {{ basket.total_cost }}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -56,10 +57,19 @@
                         <p><input name="pay_radio" type="radio" value="cash"> Наличными</p>
                         <p><input name="pay_radio" type="radio" value="online_pay"> Онлайн-оплата</p>
                         <p><input name="pay_radio" type="radio" value="bank_pay" checked> Банковской картой (курьер)</p>
+                        {% if current_user.addresses %}
+                        <p style="margin-top: 50px; font: bold 18px 'Roboto Slab'">Доставить на адрес: </p>
+                        <select class="form-control form-control-lg">
+                            {% for address in current_user.addresses %}
+                            <option>{{ address.data }}</option>
+                            {% endfor %}
+                        </select>
+                        {% else %}
+                        <p>У вас нету адресов в Личном Кабинете. <a href="/profile" style="text-decoration: none; color: #FC6E20;">Добавить</a></p>
+                        {% endif %}
                         <button type="submit" class="btn-form-order" name="act" value="do order">ОФОРМИТЬ ЗАКАЗ</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
