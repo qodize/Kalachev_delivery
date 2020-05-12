@@ -4,54 +4,43 @@
 {% block content %}
     <h1 style="font: bold 40px 'Roboto Slab'; text-align: center; margin-top: 50px; margin-bottom: 20px;">Корзина</h1>
     <!-- Здесь начинается сама строчка с заказом -->
+ {% for position in basket.positions %}
     <div class="container-fluid offer-container">
         <div class="container">
             <div class="row dish-info">
                 <div class="col-2 photo-dish">
+                    <img class="card-img-top" src="../static/img/{{  position.product.back_name }}" alt="Card image cap">
                 </div>
                 <div class="col-5 description-dish">
-                    <span>Названиe</span>
-                    <p> Состав: Lorem ipsum</p>
+                    <span>{{ position.product.front_name }}</span>
+                    <p>Описание: {{ position.product.describtion }}</p>
                 </div>
-                <div class="col-3 counter-value">
-                    <button type="button" onclick="this.nextElementSibling.stepDown()" class="btn-count">-</button>
-                    <input type="number" min="0" max="100" value="1" readonly class="count-val">
-                    <button type="button" onclick="this.previousElementSibling.stepUp()" class="btn-count">+</button>
-                </div>
-                <div class="col-2 curr-price-item">
-                    <span class="close"></span>
-                    <p>ЦЕНА</p>
-                </div>
+                <form class="col-3 counter-value" action="" method="post">
+                    <input hidden name="position_id" value="{{ position.id }}">
+
+                    <button type="submit" class="btn-count" name="act" value="down">-</button>
+                    <input type="number" min="0" max="100" value="{{ position.count }}" readonly class="count-val">
+                    <button type="submit" class="btn-count" name="act" value="up">+</button>
+                </form>
+                <form class="col-2 curr-price-item" action="" method="post">
+                    <input hidden name="position_id" value="{{ position.id }}">
+                    <button type="submit" class="close-basket" name="act" value="delete"></button>
+                    <p>{{ position.point_cost }}</p>
+                </form>
             </div>
         </div>
     </div>
+ {% endfor %}
     <!-- Конец -->
-    <div class="container-fluid offer-container">
-        <div class="container">
-            <div class="row dish-info">
-                <div class="col-2 photo-dish">
-                </div>
-                <div class="col-5 description-dish">
-                    <span>Названиe</span>
-                    <p> Состав: Lorem ipsum</p>
-                </div>
-                <div class="col-3 counter-value">
-                    <button type="button" onclick="this.nextElementSibling.stepDown()" class="btn-count">-</button>
-                    <input type="number" min="0" max="100" value="1" readonly class="count-val">
-                    <button type="button" onclick="this.previousElementSibling.stepUp()" class="btn-count">+</button>
-                </div>
-                <div class="col-2 curr-price-item">
-                    <span class="close"></span>
-                    <p>ЦЕНА</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container-fluid">
         <div class="container">
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn-form-order">ОФОРМИТЬ ЗАКАЗ</button>
-            </div>
+            {% if basket.positions %}
+            <form class="d-flex justify-content-end" action="" method="post">
+                <button type="submit" class="btn-form-order" name="act" value="do order">ОФОРМИТЬ ЗАКАЗ</button>
+            </form>
+            {% else %}
+                <p class="text-center">Ваша корзина пуста</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

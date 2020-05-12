@@ -1,6 +1,7 @@
 from flask import Blueprint
 from login_required import login_required
 from flask import Blueprint, render_template, redirect
+from flask_login import current_user, logout_user
 from main import login_user
 
 from data import db_session
@@ -30,6 +31,18 @@ def login():
     return render_template('worker_login.html', title='Авторизация', form=form)
 
 
+@blueprint.route("/logout")
+@login_required(role='admin')
+def logout():
+    logout_user()
+    return redirect("/admin/login")
+
+@blueprint.route('/', methods=['GET', 'POST'])
+@login_required(role='admin')
+def admin_home():
+    return render_template('base_workers.html', title='Авторизация')
+
+
 @blueprint.route('/register/<string:role>', methods=['GET', 'POST'])
 @login_required(role='admin')
 def register_worker(role: str):
@@ -42,7 +55,7 @@ def register_worker(role: str):
                 'worker_registration.html',
                 title='Регистрация',
                 form=form,
-                message='Работник с таким номером телефона уже зарегестрирован'
+                message='Работник с таким номером телефона уже зарегистрирован'
             )
         worker = User(
             name=form.name.data,

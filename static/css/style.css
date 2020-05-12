@@ -10,6 +10,10 @@ button:focus {
     outline: none;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .navbar-custom{
     background-color: #1f191a;
 }
@@ -19,15 +23,16 @@ button:focus {
     height: auto;
 } */
 
-.navbar-custom a {
+.navbar-custom .nav-item a {
     color: white;
     font-family: "Roboto Slab";
     font-size: 16px;
     font-weight: bold;
 }
 
-.navbar-custom a:hover,
-.navbar-custom a:active {
+.navbar-custom .nav-item a:hover,
+.navbar-custom .nav-item a:active,
+.navbar-custom .nav-item a:focus {
     color: #C4C1C1;
 }
 
@@ -55,8 +60,9 @@ button:focus {
 
 .main-login-btn:hover {
     background-color: white;
-    color: #fc6e20;
     border: #FC6E20 2px solid;
+    text-decoration: none;
+    color: #FC6E20;
 }
 
 .main-login-btn:before, .main-login-btn:after {
@@ -116,8 +122,9 @@ button:focus {
 #login-phone-number {
     padding-bottom: 15px;
     padding-top: 11px;
-    padding-left: 50px;
-    padding-right: 35px;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
     border: #FC6E20 2px solid;
     border-left: 0px;
     border-radius: 0px 5px 5px 0px;
@@ -132,6 +139,7 @@ button:focus {
 
 .login-form {
     margin-top: 50px;
+    margin-bottom: 50px;
 
 }
 
@@ -176,8 +184,10 @@ button:focus {
 
 .carousel-item {
     position: relative;
+    height: 91vh;
 }
 
+/*
 @media (min-width: 576px) {
     .carousel-item {
         height: 520px;
@@ -192,9 +202,16 @@ button:focus {
 
 @media (min-width: 992px) {
     .carousel-item {
-        height: 720px;
+        height: 85vh;
     }
 }
+
+@media (min-width: 1200px) {
+    .carousel-item {
+        height: 91vh;
+    }
+}
+*/
 
 .carousel-item img {
     height: 100%;
@@ -211,6 +228,35 @@ button:focus {
   background-color: rgba(0,0,0,0.5);
   z-index: 1;
 }
+
+.carousel-content {
+    max-width: 800px;
+    position: relative;
+    top: -540px;
+    z-index: 2;
+}
+
+.carousel-text {
+    color: #fff;
+}
+
+.carousel-text span {
+    display: inline-block;
+    margin-bottom: 80px;
+    font-weight: 400;
+}
+
+.carousel-text h1 {
+    margin-bottom: 20px;
+    font-size: 50px;
+}
+
+.carousel-text p {
+    font-size: 22px;
+    line-height: 36px;
+    font-weight: 300;
+}
+
  /*
 .carousel-text {
     color: #fff;
@@ -224,7 +270,7 @@ button:focus {
 } */
 
 .home-content {
-    margin-top: 80px;
+    margin-top: -280px;
 }
 
 footer {
@@ -370,12 +416,6 @@ footer {
     padding-top: 20;
 }
 
-/* Корзина */
-
-.cart-good {
-    background: #EFEFEF;
-}
-
 /* Меню */
 
 .menu-content {
@@ -476,14 +516,14 @@ background: #EFEFEF;
 }
 
 .card-columns {
-   @include media-breakpoint-up(lg) {
-    column-count: 3;
+   @media (min-width: 576px)  {
+    column-count: 1;
   }
-  @include media-breakpoint-up(md) {
+  @media (min-width: 768px) {
     column-count: 2;
   }
-  @include media-breakpoint-up(sm) {
-    column-count: 1;
+  @media (min-width: 992px)  {
+    column-count: 3;
   }
 }
 
@@ -538,6 +578,7 @@ background: #EFEFEF;
 .offer-container {
     margin-bottom: -50px;
 }
+
 .dish-info {
     height: 100px;
     margin-top: 50px;
@@ -548,21 +589,27 @@ background: #EFEFEF;
 
 }
 
-.col-2.photo-dish {
-    background: #FC6E20;
+.photo-dish {
     padding-left: 0px;
+    height: 100px;
+}
+
+.photo-dish img {
+    object-fit: cover;
+    max-height:99px;
 }
 
 .description-dish {
-    padding-top: 20px;
+    padding-top: 22px;
 }
 
 .description-dish span{
-    font: bold 20px 'Roboto Slab';
+    font: bold 18px 'Roboto Slab';
 }
 
 .description-dish p{
-    margin-top: 8px
+    margin-top: 6px;
+    font-size: 14px;
 }
 
 .curr-price-item p {
@@ -595,7 +642,7 @@ background: #EFEFEF;
 
 .count-val {
     border: none;
-    font: bold 34px "Roboto Slab";
+    font: bold 30px "Roboto Slab";
     text-align: center;
     border-radius: 10px;
 }
@@ -619,7 +666,7 @@ background: #EFEFEF;
     outline: none;
 }
 
-.close {
+.close-basket {
     position: absolute;
     right: 13px;
     top: 8px;
@@ -627,11 +674,11 @@ background: #EFEFEF;
     height: 20px;
     opacity: 0.3;
 }
-.close:hover {
+.close-basket:hover {
     opacity: 1;
     cursor: pointer;
 }
-.close:before, .close:after {
+.close-basket:before, .close-basket:after {
     position: absolute;
     left: 15px;
     content: ' ';
@@ -639,9 +686,122 @@ background: #EFEFEF;
     width: 2px;
     background-color: #333;
 }
-.close:before {
+.close-basket:before {
     transform: rotate(45deg);
 }
-.close:after {
+.close-basket:after {
     transform: rotate(-45deg);
+}
+
+/* Заказы  */
+
+.order-container {
+    margin-top: 30px;
+}
+
+.orders-head {
+     margin-bottom: 15px;
+}
+
+.order-card {
+    background-color: #efefef;
+    width: 70%;
+    height: 260px;
+}
+
+.order-card a {
+    color: black;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.order-card a:hover,
+.order-card a:active {
+    color: #FC6E20;
+}
+
+.order-card p {
+    font-size: 18px;
+}
+
+.order-card span{
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.card-order-btn {
+    margin: 5px auto;
+    padding: 10px 40px;
+    font-size: 18px;
+    border-radius: 7px;
+    background: #FC6E20;
+    border: none;
+    color: #ffffff;
+    transition:500ms ease all;
+}
+.card-order-btn:hover {
+    color: #FC6E20;
+    background: #fff;
+    border: #FC6E20 2px solid;
+    font-weight: bold;
+    transition:400ms ease all;
+}
+
+.order-modal {
+    width: 900px;
+}
+
+.counter-value span {
+    display: inline-block;
+}
+
+.order-modal-body {
+    margin-top: -20px;
+    margin-bottom: 70px;
+}
+.order-delivery-container {
+    margin-top: 25px;
+}
+
+.order-delivery-container p {
+    font-size: 16px;
+    line-height: 17px;
+}
+
+.order-delivery-container .card-title {
+    margin-bottom: 5px;
+}
+
+.order-delivery-container .order-card {
+    background-color: #efefef;
+    width: 70%;
+    height: 270px;
+}
+
+.worker-registration-form.login-col {
+    margin-bottom: 50px;
+    height: 100%;
+    background-image: none;
+
+}
+
+.worker-btn-custom {
+    margin: 5px auto;
+    padding: 10px 40px;
+    font-size: 18px;
+    border-radius: 7px;
+    background: #FC6E20;
+    border: none;
+    color: #ffffff;
+    transition:500ms ease all;
+}
+.worker-btn-custom:hover {
+    color: #FC6E20;
+    background: #fff;
+    border: #FC6E20 2px solid;
+    font-weight: bold;
+    transition:400ms ease all;
 }

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_workers.html" %}
 
 {% block content %}
     <div class="container-fluid login">
@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-xs-10 col-sm-10 col-lg-5 login-col">
                     <form action="" class="login-form text-center" method="post">
-                        <!--{{ form.hidden_tag() }}-->
+                        {{ form.hidden_tag() }}
                         <h1>Авторизация</h1>
                         <div>
                             <label id="user-picture" for="login-phone-number"><img src="https://img.icons8.com/metro/30/FC6E20/name.png"/></label>
@@ -18,7 +18,23 @@
                         <label id="picture-password" for="login-password"><img src="https://img.icons8.com/metro/30/FC6E20/password.png"/></label>
                         {{ form.password(type="password", id="login-password") }}
                         {{ form.submit(type="submit", class="login-btn-accept") }}
+
+                        {% for error in form.phone_number.errors %}
+                            <p class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </p>
+                        {% endfor %}
+
+                        {% for error in form.password.errors %}
+                            <p class="alert alert-danger" role="alert">
+                                {{ error }}
+                            </p>
+                        {% endfor %}
                         </div>
+
+                        {% if message %}
+                            <p class="alert alert-danger" role="alert">{{ message }}<p>
+                        {% endif %}
                     </form>
                 </div>
                 <div class="col-xs-1 col-sm-1 col-lg-3">

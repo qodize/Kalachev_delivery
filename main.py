@@ -8,7 +8,7 @@ from data.users import User, ClientAddress, WorkerData
 from data.orders import Order
 from data.products import Product
 from data.positions import Position
-
+from data.categories import Category
 
 import admins_bp
 import clients_bp
@@ -38,6 +38,7 @@ def main():
     app.register_blueprint(clients_bp.blueprint)
     app.register_blueprint(cooks_bp.blueprint, url_prefix='/cook')
     app.register_blueprint(deliverymen_bp.blueprint, url_prefix='/deliveryman')
+
 
     app.run(port=8080, host='127.0.0.1', debug=True)
 

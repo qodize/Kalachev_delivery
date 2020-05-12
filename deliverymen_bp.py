@@ -1,6 +1,7 @@
 from flask import Blueprint
 from login_required import login_required
 from flask import Blueprint, redirect, render_template
+from flask_login import current_user, logout_user
 from main import login_user
 
 from data import db_session
@@ -27,8 +28,15 @@ def deliveryman_login():
     return render_template('worker_login.html', title='Авторизация', form=form)
 
 
+@blueprint.route("/logout")
+@login_required(role='deliveryman')
+def logout():
+    logout_user()
+    return redirect("/deliveryman/login")
+
+
 @blueprint.route('/', methods=['GET', 'POST'])
 @blueprint.route('/orders', methods=['GET', 'POST'])
 @login_required(role='deliveryman')
 def deliveryman_orders():
-    pass
+    return render_template('deliveryman_orders.html', title='Заказы')
